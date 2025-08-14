@@ -3,6 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 .inter {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
@@ -47,7 +49,7 @@ header img {
 /* Nombre del encabezado */
 .headerName h1 {
     font-weight: 700;
-    font-size: 1.5625rem; /* 25px a rem */
+    font-size: 25px; /* 25px a rem */
     margin: 0; /* Asegura que no haya espacio adicional */
 }
 
@@ -125,10 +127,65 @@ header img {
     box-shadow: 0 0 100px #6b6b6b;
 }
 
+.aboutMe{
+    padding-top: 30px;
+    font-size: 30px;
+    color: white;          /* Texto blanco */
+    font-weight: bold;     /* Negrita */
+    text-align: center;    /* Centrar texto horizontalmente */
+    font-family: 'VT323', monospace;
+}
+
 @media (max-width: 768px) {
+    body {
+        margin: 0;
+        padding: 0;
+        background-image: url("./assets/img/background.jpg");
+        background-position: 13% 5%; 
+        background-repeat: no-repeat; 
+        background-attachment: fixed;
+        font-family: "Inter", sans-serif;
+    }
+
     .preview-modal img {
         max-width: 90%;
         max-height: 90%;
+    }
+
+    .headerName h1 {
+        font-weight: 700;
+        font-size: 20px; /* 25px a rem */
+        margin: 0; /* Asegura que no haya espacio adicional */
+        margin-left: 10px;
+    }
+
+    header img {
+        width: 10%; /* Ajustado para mejor responsividad */
+        min-width: 53px;
+        border-radius: 50%;
+        border: 3px solid #434349;
+        cursor: pointer;
+    }
+
+    .hamburger svg {
+        height: 2.7em;
+        transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .iconCr video {
+        width: 10%; /* Ajustado para mejor responsividad */
+        min-width: 60px;
+        border-radius: 10px; 
+        cursor: pointer;
+    }
+
+    .aboutMe{
+        padding-top: 20px;
+        font-size: 23px;
+        color: white;          /* Texto blanco */
+        font-weight: bold;     /* Negrita */
+        text-align: center;    /* Centrar texto horizontalmente */
+        font-family: 'VT323', monospace;
     }
 }
 

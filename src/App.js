@@ -82,6 +82,9 @@ function App() {
                     />
                 </div>
             )}
+            <div className='aboutMe'>
+                21 years old, Systems engineer :D
+            </div>
         </div>
     );
 }
