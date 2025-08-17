@@ -85,6 +85,41 @@ function App() {
             <div className='aboutMe'>
                 21 years old, Systems engineer :D
             </div>
+
+            <div className='knowledgesMe'>
+                Languages and technologies
+            </div>
+
+            {/* CAROUSEL */}
+            <div className="icon-cards">
+                <div className="icon-cards__content">
+                    <div className="icon-cards__item"><i className="fab fa-html5"></i></div>
+                    <div className="icon-cards__item"><i className="fab fa-css3-alt"></i></div>
+                    <div className="icon-cards__item"><i className="fab fa-js"></i></div>
+                    <div className="icon-cards__item"><i className="fab fa-react"></i></div>
+                    <div className="icon-cards__item"><i className="fab fa-python"></i></div>
+                    
+                </div>
+            </div>
+
+            <div className='contactMe'>
+                About me
+            </div>
+
+            <div className='linksMe'>
+            <a href="https://www.linkedin.com/in/johannfaucr/" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/Jxhannfaucr" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-github"></i>
+            </a>
+            <a href="https://www.instagram.com/jxhann_faucr/" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-instagram"></i>
+            </a>
+            <a href="https://music.apple.com/profile/Johann_faucr" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-apple"></i>
+            </a>
+            </div>
         </div>
     );
 }
