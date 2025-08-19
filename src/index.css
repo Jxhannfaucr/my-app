@@ -138,6 +138,7 @@ header img {
 
 .knowledgesMe{
     padding-top: 30px;
+    margin-bottom: 20px;
     font-size: 30px;
     color: #d1d1d1;
     font-weight: bold;     /* Negrita */
@@ -153,13 +154,14 @@ header img {
 
 /* Cards Icon */
 .icon-cards {
-  position: absolute;
-  top: 65%;
-  left: 50%;
+  position: relative; /* Cambio de absolute a relative */
+  top: auto;          /* Quita el top: 65% */
+  left: auto;         /* Quita el left: 50% */
   width: 180px;
   height: 160px;
-  transform: translate(-50%, -50%);
+  transform: none;    /* Quita el transform: translate(-50%, -50%) */
   perspective: 1000px;
+  margin: 0 auto;     /* Para centrarlo horizontalmente */
 }
 
 /* This rotates with the animation */
@@ -225,7 +227,6 @@ header img {
 /* END CAROUSEL */
 
 .contactMe{
-    padding-top: 190px;
     font-size: 30px;
     color: #ffffff;
     font-weight: bold;     /* Negrita */
@@ -248,7 +249,7 @@ header img {
 
 .linksMe a:hover {
   transform: scale(1.2);
-  color: #254dff; /* color al pasar el mouse */
+  color: #3ae374; /* color al pasar el mouse */
 }
 
 
@@ -314,16 +315,12 @@ header img {
     }
 
     .icon-cards {
-    position: absolute;
-    top: 63%;
+      margin-bottom: -30px;
     }
+
     .icon-cards__item {
         width: 170px;
         height: 100px;
-    }
-
-    .contactMe{
-        padding-top: 135px;
     }
     
 }
