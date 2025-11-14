@@ -6,11 +6,13 @@ import AboutMe from './components/AboutMe';
 import TechCarousel from './components/TechCarousel';
 import ContactMe from './components/ContactMe';
 import SocialLinks from './components/SocialLinks';
-import ChatBot from './components/ChatBot';
+import BtnBot from './components/BtnBot';
 import ImagePreview from './components/ImagePreview';
+import ChatBot from './components/ChatBot';
 
 function App() {
     const [showPreview, setShowPreview] = useState(false);
+    const [showChat, setShowChat] = useState(false);
 
     return (
         <div className="App">
@@ -30,7 +32,13 @@ function App() {
             
             <SocialLinks />
             
-            <ChatBot />
+
+            {/* CHATBOT */}
+            {/* 👇 Mostrar botón solo cuando el chat está cerrado */}
+            {!showChat && <BtnBot onClick={() => setShowChat(true)} />}
+            
+            {/* 👇 Mostrar chat solo cuando está abierto */}
+            {showChat && <ChatBot onClose={() => setShowChat(false)} />}
         </div>
     );
 }
