@@ -38,10 +38,11 @@ header {
 
 /* Imagen en el encabezado */
 header img {
-    width: 10%; /* Ajustado para mejor responsividad */
-    max-width: 80px;
-    min-width: 60px;
-    border-radius: 50%;
+    width: 70px;              /* Tamaño fijo inicial */
+    max-width: 100px;         /* Que no pase de este tamaño */
+    height: 70px;             /* Asegura proporción circular */
+    object-fit: cover;        /* Para que no se deforme la imagen */
+    border-radius: 50%;       /* Hace el recorte circular */
     border: 5px solid #434349;
     cursor: pointer;
 }
@@ -252,6 +253,107 @@ header img {
   color: #3ae374; /* color al pasar el mouse */
 }
 
+/* chatbot */
+.chat-btn {
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    background: #434349;
+    box-shadow: 5px 5px 10px rgba(0,0,0,.24);
+    width: 80px;
+    height: 80px;
+    border-radius: 100px 100px 0 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+    will-change: transform;
+}
+
+.chat-btn > div {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.chat-btn div div {
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 100px;
+    transition: all .3s ease-in-out;
+    position: absolute;
+}
+
+.chat-btn .left-eye {
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+}
+
+.chat-btn .right-eye {
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+}
+
+.chat-btn .mouth {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.chat-btn.active .left-eye {
+    top: 28%;
+    left: 15px;
+}
+
+.chat-btn.active .right-eye {
+    top: 35%;
+    right: 28px;
+}
+
+.chat-btn.active .mouth {
+    width: 35px;
+    height: 18px;
+    border-radius: 0 0 100px 100px;
+    top: 60%;
+    left: 35%;
+    transform: translate(-50%, -50%) rotateZ(15deg);
+}
+
+@media (min-width:1000px) {
+    .chat-btn:hover {
+        transform: translateY(-10px);
+        box-shadow: 3px 3px 8px rgba(0,0,0,.5);
+    }
+    .chat-btn:hover .left-eye { top: 35%; left: 18px; }
+    .chat-btn:hover .right-eye { top: 35%; right: 18px; }
+    .chat-btn:hover .mouth {
+        width: 30px;
+        height: 15px;
+        border-radius: 0 0 100px 100px;
+        top: 65%;
+    }
+}
+
+.chat-btn.active .left-eye { top: 28%; left: 13px; }
+.chat-btn.active .right-eye { top: 35%; right: 25px; }
+.chat-btn.active .mouth {
+    width: 25px;
+    height: 12px;
+    border-radius: 0 0 100px 100px;
+    top: 60%;
+    left: 35%;
+    transform: translate(-50%, -50%) rotateZ(15deg);
+}
+
+@media (max-width:450px) {
+    .chat-btn { width: 60px; height: 60px; }
+    .chat-btn > div div { width: 8px; height: 8px; }
+    .chat-btn > div { width: 60px; height: 60px; }
+}
 
 @media (max-width: 768px) {
     body {
@@ -277,9 +379,12 @@ header img {
     }
 
     header img {
-        width: 10%; /* Ajustado para mejor responsividad */
-        min-width: 53px;
-        border-radius: 50%;
+        width: 7%;
+        min-width: 53px; 
+        height: auto; 
+        aspect-ratio: 1 / 1;    
+        object-fit: cover;        
+        border-radius: 50%;       
         border: 3px solid #434349;
         cursor: pointer;
     }

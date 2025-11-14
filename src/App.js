@@ -40,7 +40,7 @@ function App() {
         <div className="App">
             <header>
                 <img 
-                    src="https://i.postimg.cc/mZ840wrR/ft-Profile.jpg" 
+                    src="https://i.postimg.cc/8zLjrkWn/ftprofile.jpg" 
                     alt="Foto de perfil"
                     onClick={() => setShowPreview(true)}
                     style={{cursor: 'pointer'}}
@@ -76,7 +76,7 @@ function App() {
             {showPreview && (
                 <div className="preview-modal" onClick={() => setShowPreview(false)}>
                     <img 
-                        src="https://i.postimg.cc/mZ840wrR/ft-Profile.jpg" 
+                        src="https://i.postimg.cc/8zLjrkWn/ftprofile.jpg" 
                         alt="Foto de perfil (ampliada)" 
                         onClick={(e) => e.stopPropagation()}
                     />
@@ -119,6 +119,15 @@ function App() {
             <a href="https://music.apple.com/profile/Johann_faucr" target="_blank" rel="noopener noreferrer">
                 <i className="fab fa-apple"></i>
             </a>
+            </div>
+
+            {/* chatbot */}
+            <div id="chat-btn" class="chat-btn" onclick="chatClick()">
+                <div>
+                    <div class="left-eye"></div>
+                    <div class="mouth"></div>
+                    <div class="right-eye"></div>
+                </div>
             </div>
         </div>
     );
