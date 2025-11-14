@@ -15,7 +15,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url("./assets/img/background.jpg");
+    background-image: url("../assets/img/background.jpg");
     background-position: center center; /* Mejor para centrado en diferentes tamaños de pantalla */
     background-repeat: no-repeat; 
     background-attachment: fixed;
@@ -359,7 +359,7 @@ header img {
     body {
         margin: 0;
         padding: 0;
-        background-image: url("./assets/img/background.jpg");
+        background-image: url("../assets/img/background.jpg");
         background-position: 13% 5%; 
         background-repeat: no-repeat; 
         background-attachment: fixed;

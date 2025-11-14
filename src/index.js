@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import LoaderPage from './loader_page';
-import './index.css';
+import Loader from './components/Loader';
+import './styles/index.css';
 
 function AppWithLoader() {
   const [loading, setLoading] = useState(true);
@@ -19,7 +19,7 @@ function AppWithLoader() {
 
   return (
     <>
-      {loading ? <LoaderPage /> : <App />}
+      {loading ? <Loader /> : <App />}
     </>
   );
 }

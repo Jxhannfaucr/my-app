@@ -1,7 +1,7 @@
 import React from "react";
-import './loader_page.css';
+import '../styles/Loader.css';
 
-function LoaderPage() {
+function Loader() {
   return (
     <div className="loader-container">
         <div className="loader">
@@ -15,4 +15,4 @@ function LoaderPage() {
   );
 }
 
-export default LoaderPage;
+export default Loader;
