@@ -9,6 +9,7 @@ function BtnBot({ onClick }) {
             className="chat-btn" 
             onClick={onClick}
         >
+            <span>Let's Talk</span>
             <div>
                 <div className="left-eye"></div>
                 <div className="mouth"></div>
