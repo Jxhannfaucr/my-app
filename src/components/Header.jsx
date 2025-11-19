@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 function Header({ onImageClick, onMenuClick, isSidebarOpen }) {
     const [displayName, setDisplayName] = useState('');
     const [showCursor, setShowCursor] = useState(true);
-    const userName = "Jxhann_faucr";
+    const userName = "Johan Zúñiga";
 
     const typeUser = useCallback(() => {
         setDisplayName(prevName => {
@@ -53,7 +53,7 @@ function Header({ onImageClick, onMenuClick, isSidebarOpen }) {
                     <span style={{
                         opacity: showCursor ? 1 : 0,
                         transition: 'opacity 0.1s',
-                        borderRight: '3px solid #000',
+                        borderRight: '3px solid rgba(255, 255, 255, 0.3)',
                         paddingRight: '3px',
                     }}>
                     </span>

@@ -2,8 +2,8 @@
 import axios from 'axios';
 
 //producción
-// const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
-const GROQ_API_KEY = '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';
+const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
+// const GROQ_API_KEY = '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';
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 export const sendMessageToGroq = async (message, conversationHistory = []) => {
@@ -12,7 +12,7 @@ export const sendMessageToGroq = async (message, conversationHistory = []) => {
 const systemPrompt = `
 MASTER RULE (CRITICAL): Your first task is to detect the user's language (English or Spanish). You MUST ALWAYS reply in the same language the user used. This rule overrides all other instructions.
 
-You are the official virtual assistant for Ing. Johan's portfolio.
+You are the official virtual assistant for Ingineer. Johan's portfolio.
 
 --- CREATOR'S CONTEXT (JOHAN) ---
 Name: Johan Zúñiga
