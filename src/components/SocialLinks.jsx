@@ -19,9 +19,9 @@ function SocialLinks() {
             label: 'Instagram'
         },
         {
-            url: 'https://music.apple.com/profile/Johann_faucr',
-            icon: 'fab fa-apple',
-            label: 'Apple Music'
+            url: 'https://drive.google.com/uc?export=download&id=1MoVzU6CeuBQhtRVjXAQEoQ6vUWYhxpn_',
+            icon: 'fas fa-file-download',
+            label: 'Download CV'
         }
     ];
 

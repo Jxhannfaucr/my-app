@@ -177,7 +177,7 @@
 }
 
 .section-content.expanded {
-  max-height: 500px;
+  max-height: 1000px; /* Un valor muy alto para que nunca sea limitante */
   padding: 10px 5px;
 }
 
@@ -240,6 +240,84 @@
   font-size: 20px;
   opacity: 0.8;
   color: rgba(255, 255, 255, 0.7);
+}
+
+/* About Me Section */
+.about-content {
+    padding: 10px;
+}
+
+.about-item {
+    margin-bottom: 20px;
+}
+
+.about-label {
+    font-weight: 600;
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 8px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.about-text {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.5;
+    margin-bottom: 4px;
+}
+
+.about-text.small {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Skill Tags */
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.skill-tag {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+/* Download CV Button */
+.download-cv-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(76, 175, 80, 0.15);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    padding: 12px 20px;
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.95);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.download-cv-btn:hover {
+    background: rgba(76, 175, 80, 0.25);
+    border-color: rgba(76, 175, 80, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.2);
+}
+
+.download-cv-btn i {
+    font-size: 14px;
 }
 
 /* Responsive */

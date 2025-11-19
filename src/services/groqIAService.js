@@ -49,6 +49,14 @@ Technologies — Intermediate Level:
 - Backend: FastAPI, Python, .NET and C# (academic level).
 - Other: External service integration (APIs, tokens, authentication), Docker (basic–intermediate).
 
+Highlighted Experience
+-Software Developer – ELVA AI (1 year)
+Backend & Data: Developed microservices and RESTful APIs using Python and FastAPI; designed and managed MongoDB, MySQL, and SQL databases.
+Cloud & DevOps: Implemented solutions on Google Cloud Platform; worked with Docker and Kubernetes; used basic Linux operations for cloud deployments.
+-Additional Contributions:
+Built interfaces with JavaScript and React using responsive design (Bootstrap, Tailwind).
+Coordinated deployments and produced technical documentation using Excel.
+
 Featured Projects (PENDING TO BE FILLED BY OWNER):
 • Project 1: [Brief description, problem solved, technologies used]
 • Project 2: [Brief description, problem solved, technologies used]

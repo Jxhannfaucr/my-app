@@ -11,14 +11,10 @@ function Sidebar({ isOpen, onClose }) {
 
     const projects = {
         dataAnalysis: [
-            { name: 'Análisis de Ventas', link: '#', description: 'Dashboard interactivo' },
-            { name: 'Predicción de Demanda', link: '#', description: 'Machine Learning' },
-            { name: 'Visualización COVID-19', link: '#', description: 'Python & Plotly' },
+            { name: '"Sano y Fresco": Comprehensive Data Science Strategy to Reverse E-commerce Sales Decline', link: '#', description: 'SQL, Power BI, and Python workflow to recover e-commerce sales.' }
         ],
         webDeveloper: [
-            { name: 'E-commerce Platform', link: '#', description: 'React + Node.js' },
-            { name: 'Portfolio Personal', link: '#', description: 'React + TailwindCSS' },
-            { name: 'Task Manager App', link: '#', description: 'MERN Stack' },
+            { name: 'Adding..', link: '#', description: 'Adding..' }
         ]
     };
 
@@ -40,6 +36,62 @@ function Sidebar({ isOpen, onClose }) {
 
                 {/* Contenido del Sidebar */}
                 <div className="sidebar-content">
+                    {/* Sección About Me */}
+                    <div className="sidebar-section">
+                        <button 
+                            className={`section-header ${expandedSection === 'about' ? 'active' : ''}`}
+                            onClick={() => toggleSection('about')}
+                        >
+                            <span className="section-icon">
+                                <i className="fa fa-user" aria-hidden="true"></i>
+                            </span>
+                            <span className="section-title">About Me</span>
+                            <span className={`arrow ${expandedSection === 'about' ? 'rotated' : ''}`}>›</span>
+                        </button>
+                        
+                        <div className={`section-content ${expandedSection === 'about' ? 'expanded' : ''}`}>
+                            <div className="about-content">
+                                <div className="about-item">
+                                    <div className="about-label">🎓 Education</div>
+                                    <div className="about-text">Autonomous University of Central America (UACA)</div>
+                                    <div className="about-text small">Systems Engineer</div>
+                                    <div className="about-text">Technological Institute of Costa Rica (TEC)</div>
+                                    <div className="about-text small">Data Analyst Program</div>
+                                </div>
+
+                                <div className="about-item">
+                                    <div className="about-label">💼 Experience</div>
+                                    <div className="about-text">Backend Developer at <a href="https://www.linkedin.com/company/elva-sa/" target="_blank" rel="noopener noreferrer" style={{ color: "#0ea224ff" }}>ELVA</a></div>
+                                    <div className="about-text small">Python • FastAPI • GCP (1 year)</div>
+                                </div>
+
+                                <div className="about-item">
+                                    <div className="about-label">🛠️ Skills</div>
+                                    <div className="skill-tags">
+                                        <span className="skill-tag">Python</span>
+                                        <span className="skill-tag">SQL</span>
+                                        <span className="skill-tag">Power BI</span>
+                                        <span className="skill-tag">GCP</span>
+                                        <span className="skill-tag">React</span>
+                                    </div>
+                                </div>
+
+                                <div className="about-item">
+                                    <div className="about-label">📜 Certification</div>
+                                    <div className="about-text">Google Data Analytics Professional</div>
+                                </div>
+
+                                <a 
+                                    href="https://drive.google.com/uc?export=download&id=1MoVzU6CeuBQhtRVjXAQEoQ6vUWYhxpn_" 
+                                    className="download-cv-btn"
+                                    target="_self"
+                                >
+                                    <i className="fas fa-download"></i> Download Full CV
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Sección Data Analysis */}
                     <div className="sidebar-section">
                         <button 
@@ -47,7 +99,7 @@ function Sidebar({ isOpen, onClose }) {
                             onClick={() => toggleSection('data')}
                         >
                             <span className="section-icon">
-                                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                <i className="fa fa-bar-chart" aria-hidden="true"></i>
                             </span>
                             <span className="section-title">Data Analysis</span>
                             <span className={`arrow ${expandedSection === 'data' ? 'rotated' : ''}`}>›</span>
@@ -75,7 +127,7 @@ function Sidebar({ isOpen, onClose }) {
                             onClick={() => toggleSection('web')}
                         >
                             <span className="section-icon">
-                                <i class="fa fa-code" aria-hidden="true"></i>
+                                <i className="fa fa-code" aria-hidden="true"></i>
                             </span>
                             <span className="section-title">Web Developer</span>
                             <span className={`arrow ${expandedSection === 'web' ? 'rotated' : ''}`}>›</span>

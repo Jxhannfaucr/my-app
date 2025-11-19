@@ -4,7 +4,7 @@ import React from 'react';
 function ContactMe() {
     return (
         <div className='contactMe'>
-            About me
+            Contact Me
         </div>
     );
 }
