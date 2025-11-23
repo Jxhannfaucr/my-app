@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import CostaRicaIcon from './components/CostaRicaIcon';
 import AboutMe from './components/AboutMe';
 import TechCarousel from './components/TechCarousel';
 import ContactMe from './components/ContactMe';
@@ -17,36 +16,47 @@ function App() {
     const [showSidebar, setShowSidebar] = useState(false);
 
     return (
-        <div className="App">
-            <Header 
-                onImageClick={() => setShowPreview(true)}
-                onMenuClick={() => setShowSidebar(true)}
-                isSidebarOpen={showSidebar}
-            />
-            
-            <Sidebar 
-                isOpen={showSidebar}
-                onClose={() => setShowSidebar(false)}
-            />
-            
-            <CostaRicaIcon />
-            
-            {showPreview && (
-                <ImagePreview onClose={() => setShowPreview(false)} />
-            )}
-            
-            <AboutMe />
-            
-            <TechCarousel />
-            
-            <ContactMe />
-            
-            <SocialLinks />
-            
-            {!showChat && <BtnBot onClick={() => setShowChat(true)} />}
-            
-            {showChat && <ChatBot onClose={() => setShowChat(false)} />}
-        </div>
+        <>
+            {/* Fondo animado */}
+            <div className="background-container">
+                <div className="curve-line"></div>
+                <div className="curve-line"></div>
+                <div className="curve-line"></div>
+                <div className="particle"></div>
+                <div className="particle"></div>
+                <div className="particle"></div>
+                <div className="particle"></div>
+                <div className="gradient-overlay"></div>
+            </div>
+            <div className="App">
+                <Header 
+                    onImageClick={() => setShowPreview(true)}
+                    onMenuClick={() => setShowSidebar(true)}
+                    isSidebarOpen={showSidebar}
+                />
+                
+                <Sidebar 
+                    isOpen={showSidebar}
+                    onClose={() => setShowSidebar(false)}
+                />
+                
+                {showPreview && (
+                    <ImagePreview onClose={() => setShowPreview(false)} />
+                )}
+                
+                <AboutMe />
+                
+                <TechCarousel />
+                
+                <ContactMe />
+                
+                <SocialLinks />
+                
+                {!showChat && <BtnBot onClick={() => setShowChat(true)} />}
+                
+                {showChat && <ChatBot onClose={() => setShowChat(false)} />}
+            </div>
+        </>
     );
 }
 

@@ -13,13 +13,187 @@
 
 /* Estilos generales */
 body {
-    margin: 0;
-    padding: 0;
-    background-image: url("../assets/img/background.jpg");
-    background-position: center center;
-    background-repeat: no-repeat; 
-    background-attachment: fixed;
-    font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #141414;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Contenedor de fondo */
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  background: radial-gradient(ellipse at top, #1d2532 0%, #0a0a0a 50%);
+}
+
+/* Líneas curvas decorativas */
+.background-container::before,
+.background-container::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Círculo superior izquierdo */
+.background-container::before {
+  width: 600px;
+  height: 600px;
+  top: -300px;
+  left: -300px;
+  box-shadow: 
+    0 0 0 20px rgba(255, 255, 255, 0.03),
+    0 0 0 40px rgba(255, 255, 255, 0.02),
+    0 0 0 60px rgba(255, 255, 255, 0.01);
+  animation: pulse 8s ease-in-out infinite;
+}
+
+/* Círculo inferior derecho */
+.background-container::after {
+  width: 800px;
+  height: 800px;
+  bottom: -400px;
+  right: -400px;
+  box-shadow: 
+    0 0 0 30px rgba(255, 255, 255, 0.03),
+    0 0 0 60px rgba(255, 255, 255, 0.02),
+    0 0 0 90px rgba(255, 255, 255, 0.01);
+  animation: pulse 10s ease-in-out infinite reverse;
+}
+
+/* Líneas curvas adicionales */
+.curve-line {
+  position: absolute;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  width: 200%;
+  transform-origin: center;
+}
+
+.curve-line:nth-child(1) {
+  top: 20%;
+  left: -50%;
+  height: 300px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  animation: float 20s ease-in-out infinite;
+}
+
+.curve-line:nth-child(2) {
+  top: 50%;
+  right: -50%;
+  height: 400px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  animation: float 25s ease-in-out infinite reverse;
+}
+
+.curve-line:nth-child(3) {
+  bottom: 10%;
+  left: -30%;
+  height: 350px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  animation: float 18s ease-in-out infinite;
+}
+
+/* Partículas flotantes */
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.particle:nth-child(4) {
+  width: 3px;
+  height: 3px;
+  top: 20%;
+  left: 10%;
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+.particle:nth-child(5) {
+  width: 2px;
+  height: 2px;
+  top: 60%;
+  left: 80%;
+  animation: twinkle 5s ease-in-out infinite 1s;
+}
+
+.particle:nth-child(6) {
+  width: 4px;
+  height: 4px;
+  top: 80%;
+  left: 30%;
+  animation: twinkle 6s ease-in-out infinite 2s;
+}
+
+.particle:nth-child(7) {
+  width: 2px;
+  height: 2px;
+  top: 40%;
+  left: 70%;
+  animation: twinkle 3s ease-in-out infinite 0.5s;
+}
+
+/* Efecto de gradiente sutil */
+.gradient-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 30% 50%,
+    rgba(100, 100, 255, 0.03) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    circle at 70% 80%,
+    rgba(150, 100, 255, 0.02) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+/* Animaciones */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.3;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) translateX(10px) rotate(5deg);
+  }
+  66% {
+    transform: translateY(10px) translateX(-10px) rotate(-5deg);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
 }
 
 /* Encabezado - Liquid Glass */
@@ -29,6 +203,7 @@ header {
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.18);
     margin: 2rem;
+    margin-bottom: 3rem;
     border-radius: 1.875rem;
     display: flex;
     flex-direction: row;
@@ -64,23 +239,6 @@ header img:hover {
     color: #d1d1d1;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
-
-/* Icon costa rica */
-.iconCr {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-}
-
-.iconCr video {
-    width: 10%; /* Ajustado para mejor responsividad */
-    max-width: 80px;
-    min-width: 80px;
-    border-radius: 10px; 
-    cursor: pointer;
-}
-
 
 .preview-modal {
     position: fixed;
@@ -485,14 +643,23 @@ header img:hover {
 }
 
 @media (max-width: 768px) {
-    body {
-        margin: 0;
-        padding: 0;
-        background-image: url("../assets/img/background.jpg");
-        background-position: 73% 20%; 
-        background-repeat: no-repeat; 
-        background-attachment: fixed;
-        font-family: "Inter", sans-serif;
+
+    .background-container::before {
+    width: 400px;
+    height: 400px;
+    top: -200px;
+    left: -200px;
+    }
+    
+    .background-container::after {
+      width: 500px;
+      height: 500px;
+      bottom: -250px;
+      right: -250px;
+    }
+    
+    .curve-line {
+      width: 300%;
     }
 
     .preview-modal img {
