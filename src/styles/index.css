@@ -706,6 +706,7 @@ header img:hover {
         font-weight: bold;     /* Negrita */
         text-align: center;    /* Centrar texto horizontalmente */
         font-family: 'VT323', monospace;
+        margin-bottom: 30px;
     }
 
     .knowledgesMe{
@@ -728,6 +729,7 @@ header img:hover {
     .contactMe {
       font-size: 25px;
       padding: 0 20px;
+      margin-top: 15px;
     }
 
     .linksMe {
