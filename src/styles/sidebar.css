@@ -329,6 +329,6 @@
   }
 
   .sidebar-footer {
-    padding-bottom: calc(25px + env(safe-area-inset-bottom)); /* 👈 Más espacio en móvil */
+    padding-bottom: 40px;
   }
 }
