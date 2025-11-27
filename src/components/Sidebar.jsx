@@ -1,5 +1,6 @@
 // src/components/Sidebar.jsx
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/sidebar.css';
 
 function Sidebar({ isOpen, onClose }) {
@@ -11,7 +12,7 @@ function Sidebar({ isOpen, onClose }) {
 
     const projects = {
         dataAnalysis: [
-            { name: '"Sano y Fresco": Comprehensive Data Science Strategy to Reverse E-commerce Sales Decline', link: '#', description: 'SQL, Power BI, and Python workflow to recover e-commerce sales.' }
+            { name: '"Sano y Fresco": Comprehensive Data Science Strategy to Reverse E-commerce Sales Decline', link: '/project/ventas', description: 'SQL, Power BI, and Python workflow to recover e-commerce sales.' }
         ],
         webDeveloper: [
             { name: 'Adding..', link: '#', description: 'Adding..' }
@@ -107,15 +108,15 @@ function Sidebar({ isOpen, onClose }) {
                         
                         <div className={`section-content ${expandedSection === 'data' ? 'expanded' : ''}`}>
                             {projects.dataAnalysis.map((project, index) => (
-                                <a 
+                                <Link 
                                     key={index} 
-                                    href={project.link} 
+                                    to={project.link} 
                                     className="project-item"
                                     onClick={onClose}
                                 >
                                     <div className="project-name">{project.name}</div>
                                     <div className="project-description">{project.description}</div>
-                                </a>
+                                </Link>
                             ))}
                         </div>
                     </div>

@@ -1,63 +1,44 @@
 // src/App.js
-import React, { useState } from 'react';
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
-import AboutMe from './components/AboutMe';
-import TechCarousel from './components/TechCarousel';
-import ContactMe from './components/ContactMe';
-import SocialLinks from './components/SocialLinks';
-import BtnBot from './components/BtnBot';
-import ChatBot from './components/ChatBot';
-import ImagePreview from './components/ImagePreview';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import ProjectVentas from './pages/ProjectVentas';
+import Loader from './components/Loader';
+import './styles/index.css';
 
 function App() {
-    const [showPreview, setShowPreview] = useState(false);
-    const [showChat, setShowChat] = useState(false);
-    const [showSidebar, setShowSidebar] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    return (
-        <>
-            {/* Fondo animado */}
-            <div className="background-container">
-                <div className="curve-line"></div>
-                <div className="curve-line"></div>
-                <div className="curve-line"></div>
-                <div className="particle"></div>
-                <div className="particle"></div>
-                <div className="particle"></div>
-                <div className="particle"></div>
-                <div className="gradient-overlay"></div>
-            </div>
-            <div className="App">
-                <Header 
-                    onImageClick={() => setShowPreview(true)}
-                    onMenuClick={() => setShowSidebar(true)}
-                    isSidebarOpen={showSidebar}
-                />
-                
-                <Sidebar 
-                    isOpen={showSidebar}
-                    onClose={() => setShowSidebar(false)}
-                />
-                
-                {showPreview && (
-                    <ImagePreview onClose={() => setShowPreview(false)} />
-                )}
-                
-                <AboutMe />
-                
-                <TechCarousel />
-                
-                <ContactMe />
-                
-                <SocialLinks />
-                
-                {!showChat && <BtnBot onClick={() => setShowChat(true)} />}
-                
-                {showChat && <ChatBot onClose={() => setShowChat(false)} />}
-            </div>
-        </>
-    );
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1400);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <Loader />;
+
+  return (
+    <Router>
+        {/* Fondo animado */}
+        <div className="background-container">
+            <div className="curve-line"></div>
+            <div className="curve-line"></div>
+            <div className="curve-line"></div>
+            <div className="particle"></div>
+            <div className="particle"></div>
+            <div className="particle"></div>
+            <div className="particle"></div>
+            <div className="gradient-overlay"></div>
+        </div>
+      {/* Rutas de la aplicación */}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/project/ventas" element={<ProjectVentas />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
