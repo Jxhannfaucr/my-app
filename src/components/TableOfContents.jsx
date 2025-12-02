@@ -12,7 +12,7 @@ function TableOfContents({ sections, activeSection }) {
     return (
         <aside className="table-of-contents">
             <div className="toc-container">
-                <h3 className="toc-title">Table of Contents</h3>
+                <h3 className="toc-title">Tabla de contenido</h3>
                 <nav className="toc-nav">
                     {sections.map((section, index) => (
                         <button

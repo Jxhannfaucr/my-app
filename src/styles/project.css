@@ -63,7 +63,9 @@
 .table-of-contents {
   position: sticky;
   top: 120px;
-  align-self: start;
+  align-self: flex-start;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
 }
 
 .toc-container {

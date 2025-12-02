@@ -12,10 +12,10 @@ function Sidebar({ isOpen, onClose }) {
 
     const projects = {
         dataAnalysis: [
-            { name: '"Sano y Fresco": Comprehensive Data Science Strategy to Reverse E-commerce Sales Decline', link: '/project/ventas', description: 'SQL, Power BI, and Python workflow to recover e-commerce sales.' }
+            { name: '"Sano y Fresco": Estrategia Integral de Data Science para Revertir la Caída de Ventas del E-commerce', link: '/project/ventas', description: 'Flujo de trabajo con SQL, Power BI y Python para recuperar ventas.' }
         ],
         webDeveloper: [
-            { name: 'Adding..', link: '#', description: 'Adding..' }
+            { name: 'Agregando..', link: '#', description: 'Agregando..' }
         ]
     };
 
@@ -31,7 +31,7 @@ function Sidebar({ isOpen, onClose }) {
             <div className={`sidebar ${isOpen ? 'open' : ''}`}>
                 {/* Header del Sidebar */}
                 <div className="sidebar-header">
-                    <h2>Portfolio</h2>
+                    <h2>Portafolio</h2>
                     <button className="close-btn" onClick={onClose}>✕</button>
                 </div>
 
@@ -46,28 +46,28 @@ function Sidebar({ isOpen, onClose }) {
                             <span className="section-icon">
                                 <i className="fa fa-user" aria-hidden="true"></i>
                             </span>
-                            <span className="section-title">About Me</span>
+                            <span className="section-title">Sobre Mí</span>
                             <span className={`arrow ${expandedSection === 'about' ? 'rotated' : ''}`}>›</span>
                         </button>
                         
                         <div className={`section-content ${expandedSection === 'about' ? 'expanded' : ''}`}>
                             <div className="about-content">
                                 <div className="about-item">
-                                    <div className="about-label">🎓 Education</div>
-                                    <div className="about-text">Autonomous University of Central America (UACA)</div>
-                                    <div className="about-text small">Systems Engineer</div>
-                                    <div className="about-text">Technological Institute of Costa Rica (TEC)</div>
-                                    <div className="about-text small">Data Analyst Program</div>
+                                    <div className="about-label">🎓 Educación</div>
+                                    <div className="about-text">Universidad Autónoma de Centro América (UACA)</div>
+                                    <div className="about-text small">Bachillerato de Ingeniería en Sistemas</div>
+                                    <div className="about-text">Tecnológico de Costa Rica (TEC)</div>
+                                    <div className="about-text small">Técnico de Analista de Datos</div>
                                 </div>
 
                                 <div className="about-item">
-                                    <div className="about-label">💼 Experience</div>
-                                    <div className="about-text">Backend Developer at <a href="https://www.linkedin.com/company/elva-sa/" target="_blank" rel="noopener noreferrer" style={{ color: "#0ea224ff" }}>ELVA</a></div>
-                                    <div className="about-text small">Python • FastAPI • GCP (1 year)</div>
+                                    <div className="about-label">💼 Experiencia</div>
+                                    <div className="about-text">Desarrollador Backend en <a href="https://www.linkedin.com/company/elva-sa/" target="_blank" rel="noopener noreferrer" style={{ color: "#0ea224ff" }}>ELVA</a></div>
+                                    <div className="about-text small">Python • FastAPI • GCP (1 año)</div>
                                 </div>
 
                                 <div className="about-item">
-                                    <div className="about-label">🛠️ Skills</div>
+                                    <div className="about-label">🛠️ Habilidades</div>
                                     <div className="skill-tags">
                                         <span className="skill-tag">Python</span>
                                         <span className="skill-tag">SQL</span>
@@ -78,7 +78,7 @@ function Sidebar({ isOpen, onClose }) {
                                 </div>
 
                                 <div className="about-item">
-                                    <div className="about-label">📜 Certification</div>
+                                    <div className="about-label">📜 Certificación</div>
                                     <div className="about-text">Google Data Analytics Professional</div>
                                 </div>
 
@@ -87,7 +87,7 @@ function Sidebar({ isOpen, onClose }) {
                                     className="download-cv-btn"
                                     target="_self"
                                 >
-                                    <i className="fas fa-download"></i> Download Full CV
+                                    <i className="fas fa-download"></i> Descargar CV Completo
                                 </a>
                             </div>
                         </div>
@@ -102,7 +102,7 @@ function Sidebar({ isOpen, onClose }) {
                             <span className="section-icon">
                                 <i className="fa fa-bar-chart" aria-hidden="true"></i>
                             </span>
-                            <span className="section-title">Data Analysis</span>
+                            <span className="section-title">Análisis de Datos</span>
                             <span className={`arrow ${expandedSection === 'data' ? 'rotated' : ''}`}>›</span>
                         </button>
                         
@@ -130,7 +130,7 @@ function Sidebar({ isOpen, onClose }) {
                             <span className="section-icon">
                                 <i className="fa fa-code" aria-hidden="true"></i>
                             </span>
-                            <span className="section-title">Web Developer</span>
+                            <span className="section-title">Desarrollo Web</span>
                             <span className={`arrow ${expandedSection === 'web' ? 'rotated' : ''}`}>›</span>
                         </button>
                         
@@ -153,7 +153,7 @@ function Sidebar({ isOpen, onClose }) {
                 {/* Footer del Sidebar */}
                 <div className="sidebar-footer">
                     <p>Johan Zúñiga</p>
-                    <p className="footer-subtitle">Systems Engineer</p>
+                    <p className="footer-subtitle">Ingeniero en Sistemas</p>
                 </div>
             </div>
         </>

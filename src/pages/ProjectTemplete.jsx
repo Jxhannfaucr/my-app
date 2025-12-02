@@ -60,7 +60,7 @@ function ProjectTemplate({
             <div className="project-container">
                 {/* Botón de regresar */}
                 <button className="back-button" onClick={() => navigate('/')}>
-                    <i className="fas fa-arrow-left"></i> Back to Home
+                    <i className="fas fa-arrow-left"></i> Volver a Inicio
                 </button>
 
                 <div className="project-content-wrapper">

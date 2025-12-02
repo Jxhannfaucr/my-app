@@ -87,10 +87,10 @@ function ChatBot({ onClose }) {
                             backdrop: 'rgba(0, 0, 0, 0.7)',
                             color: 'rgba(255, 255, 255, 0.9)',
                             customClass: {
-                                popup: 'swal-liquid-glass',
+                                popup: 'swal-liquid-glass swal-custom-font',
                                 confirmButton: 'swal-btn-confirm',
                                 cancelButton: 'swal-btn-cancel'
-                            }
+                            },
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 onClose();

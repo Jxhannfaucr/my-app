@@ -13,7 +13,7 @@ const technologies = [
     return (
         <>
             <div className='knowledgesMe'>
-                Languages and technologies
+                Lenguajes y tecnologías
             </div>
 
             <div className="icon-cards">

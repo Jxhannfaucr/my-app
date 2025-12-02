@@ -1,4 +1,7 @@
 /* ChatBot - Liquid Glass Theme */
+.swal-custom-font {
+    font-family: 'VT323', monospace !important;
+}
 
 .card-container {
   background: rgba(255, 255, 255, 0.05);
@@ -19,6 +22,8 @@
   
   /* Sombra para que se vea elevado */
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+  font-family: 'VT323', monospace;
 }
 
 .card-header {
@@ -89,6 +94,7 @@
   font-size: 13px;
   text-align: left;
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  font-size: 15px;
 }
 
 .message-box.right {
@@ -98,6 +104,7 @@
   font-size: 13px;
   text-align: right;
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  font-size: 15px;
 }
 
 .message-input {
@@ -114,7 +121,7 @@
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(5px);
   color: rgba(255, 255, 255, 0.9);
-  font-size: 13px;
+  font-size: 15px;
   transition: all 0.3s ease;
 }
 
@@ -138,7 +145,7 @@
   cursor: pointer;
   margin-top: 8px;
   border-radius: 10px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);

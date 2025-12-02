@@ -4,7 +4,7 @@ import React from 'react';
 function AboutMe() {
     return (
         <div className='aboutMe'>
-            21 years old, Systems engineer :D
+            21 años, Ingeniero en Sistemas :D
         </div>
     );
 }
