@@ -64,6 +64,9 @@ function Sidebar({ isOpen, onClose }) {
                                     <div className="about-label">💼 Experiencia</div>
                                     <div className="about-text">Desarrollador Backend en <a href="https://www.linkedin.com/company/elva-sa/" target="_blank" rel="noopener noreferrer" style={{ color: "#0ea224ff" }}>ELVA</a></div>
                                     <div className="about-text small">Python • FastAPI • GCP (1 año)</div>
+
+                                    <div className="about-text">Líder de Datos e Infraestructura en <span style={{ color: "#0ea224ff" }}><a href='https://agrologos.co.cr/' target='_blank' rel='noopener noreferrer'>Almacén Agro Logos S.A</a></span></div>
+                                    <div className="about-text small">SQL • Gestión IT • Normalización de Datos (Nov 2025 – Presente)</div>
                                 </div>
 
                                 <div className="about-item">
@@ -83,7 +86,7 @@ function Sidebar({ isOpen, onClose }) {
                                 </div>
 
                                 <a 
-                                    href="https://drive.google.com/uc?export=download&id=1MoVzU6CeuBQhtRVjXAQEoQ6vUWYhxpn_" 
+                                    href="https://drive.google.com/uc?export=download&id=1a96fEQen6ABQ-YpcKBUE300K7xHqL13z"
                                     className="download-cv-btn"
                                     target="_self"
                                 >
