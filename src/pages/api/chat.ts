@@ -52,13 +52,17 @@ export const POST: APIRoute = async ({ request, site }) => {
   const siteUrl = (site ?? new URL('https://johan-portfolio-three.vercel.app')).origin;
 
   try {
+    const model = graph.site.chat.model;
     const upstream = await fetch(GROQ_URL, {
       method: 'POST',
       headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: graph.site.chat.model,
+        model,
         temperature: 0.6,
         max_tokens: graph.site.chat.maxTokens,
+        // Los modelos "gpt-oss" de Groq son razonadores: bajar el esfuerzo deja más presupuesto
+        // de tokens para la respuesta visible (si no, con historiales largos puede salir vacía).
+        ...(model.startsWith('openai/gpt-oss') && { reasoning_effort: 'low' }),
         messages: [{ role: 'system', content: buildSystemPrompt(siteUrl) }, ...history, { role: 'user', content: message }],
       }),
     });

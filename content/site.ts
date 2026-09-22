@@ -10,7 +10,10 @@ export default defineSite({
     timeline: 6, // eventos en la bitácora de la home
   },
   chat: {
-    model: 'llama-3.1-8b-instant',
-    maxTokens: 300,
+    // Groq retira modelos con cierta frecuencia; lista vigente: https://console.groq.com/docs/models
+    model: 'openai/gpt-oss-20b',
+    // Los modelos "razonadores" (gpt-oss) gastan una parte del presupuesto pensando antes de
+    // responder (ver `reasoning_effort` en chat.ts): dejamos margen para que no truncar la respuesta.
+    maxTokens: 500,
   },
 });
