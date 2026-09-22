@@ -7,7 +7,9 @@ export const prerender = false;
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const MAX_MESSAGE = 1000;
-const MAX_HISTORY = 10;
+// Menos turnos de historial = menos tokens repetidos en cada request (el plan gratis de Groq
+// tiene un límite bajo por minuto, y el prompt entero se reenvía en cada turno).
+const MAX_HISTORY = 6;
 
 // GROQ_API_KEY es el nombre nuevo; REACT_APP_GROQ_API_KEY se acepta para no obligar a crear otra key
 // (era la variable del sitio anterior). Ambas son solo de servidor en Astro.
@@ -67,7 +69,11 @@ export const POST: APIRoute = async ({ request, site }) => {
       }),
     });
     if (!upstream.ok) {
-      console.error('[chat] Groq respondió', upstream.status, (await upstream.text()).slice(0, 300));
+      const detail = (await upstream.text()).slice(0, 300);
+      console.error('[chat] Groq respondió', upstream.status, detail);
+      // El plan gratis de Groq tiene un límite bajo de tokens/min: se distingue para mostrar
+      // un mensaje honesto ("esperá un momento") en vez del genérico "algo falló".
+      if (upstream.status === 429) return json({ error: 'rate_limited' }, 429);
       return json({ error: 'upstream' }, 502);
     }
     const data = await upstream.json();

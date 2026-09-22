@@ -11,9 +11,11 @@ export default defineSite({
   },
   chat: {
     // Groq retira modelos con cierta frecuencia; lista vigente: https://console.groq.com/docs/models
-    model: 'openai/gpt-oss-20b',
-    // Los modelos "razonadores" (gpt-oss) gastan una parte del presupuesto pensando antes de
-    // responder (ver `reasoning_effort` en chat.ts): dejamos margen para que no truncar la respuesta.
-    maxTokens: 500,
+    // (gpt-oss-20b/120b quedaron descartados: en el plan gratis a veces intentan invocar una
+    // herramienta interna inexistente y Groq responde 400 "Tool choice is none, but model called a tool").
+    model: 'qwen/qwen3.8-27b',
+    // Tope generoso para no cortar a mitad de frase una respuesta que el visitante pidió extensa;
+    // el prompt (ver prompt.ts) ya empuja al modelo a ser breve por defecto.
+    maxTokens: 400,
   },
 });

@@ -179,6 +179,20 @@
   margin-bottom: 2px;
   font-size: 1.125rem;
 }
+.msg strong {
+  font-weight: 600;
+  color: var(--fg);
+}
+.msg code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  padding: 0.1em 0.35em;
+  border: 1px solid var(--line-2);
+}
+.msg a {
+  color: var(--fg);
+  text-decoration-color: var(--fg-3);
+}
 .msg--user {
   align-self: flex-end;
   padding: 8px 12px;

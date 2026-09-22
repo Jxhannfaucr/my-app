@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { inline } from '@lib/content/text';
 import './chat.css';
 
 interface Msg {
@@ -12,6 +13,7 @@ interface Props {
 
 const ERRORS: Record<string, string> = {
   not_configured: 'El chat todavía no está configurado :/ Escribile a Johan directamente.',
+  rate_limited: 'Estoy respondiendo muchas preguntas ahora mismo :/ Esperá unos segundos e intentá de nuevo.',
   default: 'Uy, algo falló de mi lado :/ Intentá de nuevo en un momento.',
 };
 
@@ -57,7 +59,7 @@ export default function Chat({ greeting, suggestions }: Props) {
   async function send(text: string) {
     const message = text.trim();
     if (!message || busy) return;
-    const history = messages.slice(1).slice(-10); // sin el saludo inicial
+    const history = messages.slice(1).slice(-6); // sin el saludo inicial
     setMessages((m) => [...m, { role: 'user', content: message }]);
     setInput('');
     setBusy(true);
@@ -108,7 +110,13 @@ export default function Chat({ greeting, suggestions }: Props) {
             {messages.map((m, i) => (
               <p key={i} className={`msg msg--${m.role}`}>
                 {m.role === 'assistant' && <span className="label msg__who">Asistente</span>}
-                {m.content}
+                {m.role === 'assistant' ? (
+                  // inline() escapa el HTML del modelo y solo habilita **negrita**, `code` y [enlaces](url):
+                  // el resto del texto (incluida cualquier otra sintaxis Markdown) queda como texto plano.
+                  <span dangerouslySetInnerHTML={{ __html: inline(m.content) }} />
+                ) : (
+                  m.content
+                )}
               </p>
             ))}
             {busy && (
