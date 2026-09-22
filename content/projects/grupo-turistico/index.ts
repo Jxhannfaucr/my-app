@@ -14,6 +14,7 @@ export default defineProject({
   origin: 'client',
   status: 'shipped',
   links: [], // TODO(johan): demo / repo si son públicos
+  cover: 'assets/dashboard-admin.jpg',
 
   blocks: [
     {
@@ -35,6 +36,13 @@ export default defineProject({
         'Tareas en segundo plano (background tasks)',
         'Lógica de ciclo de vida',
       ],
+    },
+    {
+      heading: 'Panel administrativo',
+      type: 'figure',
+      src: 'assets/dashboard-admin.jpg',
+      alt: 'Panel administrativo SGT-QR: ingresos del mes, saldo pendiente, ocupación global, tickets emitidos y próximo viaje',
+      caption: 'Dashboard financiero y operativo: ingresos, ocupación, tickets del mes y viajes activos en tiempo real.',
     },
   ],
 });
