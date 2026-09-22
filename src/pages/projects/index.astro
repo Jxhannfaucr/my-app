@@ -1,0 +1,72 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectRow from '../../components/ProjectRow.astro';
+import { areasInUse, projectsByYear, stats } from '@lib/content/derive';
+
+const years = projectsByYear();
+const areas = areasInUse();
+const s = stats();
+---
+
+<Base title="Proyectos" description="Archivo completo de proyectos de Johan Zúñiga: backend, datos y web.">
+  <div class="wrap page">
+    <p class="label"><a href="/">← Inicio</a></p>
+    <h1 class="voice">Proyectos</h1>
+    <p class="summary label">
+      <span class="signal">{s.projects}</span> {s.projects === 1 ? 'entrada' : 'entradas'}
+      {areas.length > 0 && ' · '}
+      {
+        areas.map((a, i) => (
+          <>
+            {i > 0 && ' · '}
+            {a.label} <span class="signal">{a.count}</span>
+          </>
+        ))
+      }
+    </p>
+
+    {
+      years.map((g) => (
+        <section class="year">
+          <h2 class="label">{g.year}</h2>
+          <div>
+            {g.items.map((p) => (
+              <ProjectRow project={p} />
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</Base>
+
+<style>
+  .page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-block: clamp(32px, 6vw, 72px) 0;
+  }
+  .page > .label a {
+    text-decoration: none;
+  }
+  h1 {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 0.95;
+  }
+  .year {
+    display: grid;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .year h2 {
+    color: var(--fg);
+    font-size: 1.75rem;
+  }
+  @media (min-width: 860px) {
+    .year {
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: 40px;
+    }
+  }
+</style>

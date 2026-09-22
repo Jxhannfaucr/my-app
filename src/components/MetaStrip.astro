@@ -1,0 +1,33 @@
+---
+import type { Project } from '@lib/content/load';
+import { areaLabel, entryLabel, originLabel, statusLabel } from '@lib/content/derive';
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+---
+
+<p class="meta label">
+  <span>{entryLabel(project)}</span>
+  <span>{project.date}</span>
+  <span>{project.areas.map(areaLabel).join(' · ')}</span>
+  <span>{originLabel(project.origin)}</span>
+  {project.status !== 'shipped' && <span>{statusLabel(project.status)}</span>}
+</p>
+
+<style>
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 0;
+  }
+  .meta span:not(:last-child)::after {
+    content: '/';
+    margin-inline: 0.55em;
+    color: var(--line-2);
+  }
+  .meta span:first-child {
+    color: var(--fg-2);
+  }
+</style>

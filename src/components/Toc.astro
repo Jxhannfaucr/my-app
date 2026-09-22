@@ -1,0 +1,92 @@
+---
+import type { Section } from '@lib/content/derive';
+
+interface Props {
+  sections: Section[];
+}
+const items = Astro.props.sections.filter((s) => s.heading && s.id);
+---
+
+{
+  items.length > 1 && (
+    <nav class="toc" aria-label="Contenido de la página">
+      <p class="label">Contenido</p>
+      <ol>
+        {items.map((s) => (
+          <li>
+            <a href={`#${s.id}`} data-toc={s.id}>
+              <span class="n voice">{String(s.number).padStart(2, '0')}</span>
+              <span>{s.heading}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+<script>
+  // Marca la sección visible. Sin dependencias: un IntersectionObserver.
+  const links = new Map<string, HTMLElement>();
+  document.querySelectorAll<HTMLElement>('[data-toc]').forEach((a) => links.set(a.dataset.toc!, a));
+  const sections = [...links.keys()].map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+
+  if (sections.length) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            links.forEach((a) => a.removeAttribute('aria-current'));
+            links.get(e.target.id)?.setAttribute('aria-current', 'true');
+          }
+        }
+      },
+      { rootMargin: '-15% 0px -70% 0px' },
+    );
+    sections.forEach((s) => io.observe(s));
+  }
+</script>
+
+<style>
+  .toc {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  ol {
+    display: flex;
+    flex-direction: column;
+  }
+  a {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    padding: 6px 0 6px 14px;
+    margin-left: -1px;
+    border-left: 1px solid var(--line);
+    color: var(--fg-3);
+    font-size: 0.9375rem;
+    line-height: 1.35;
+    text-decoration: none;
+    transition:
+      color 0.15s,
+      border-color 0.15s;
+  }
+  a:hover {
+    color: var(--fg);
+  }
+  a[aria-current='true'] {
+    color: var(--fg);
+    border-left-color: var(--fg);
+  }
+  .n {
+    font-size: 1.25rem;
+    color: inherit;
+  }
+  @media (min-width: 980px) {
+    .toc {
+      position: sticky;
+      top: 24px;
+    }
+  }
+</style>

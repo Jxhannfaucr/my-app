@@ -1,0 +1,28 @@
+/*
+ * Tokens del sistema visual. Reglas de identidad:
+ *  - Blanco/gris = lo que escribió Johan. Lima (--signal) = lo que MIDIÓ o DERIVÓ el sistema
+ *    (conteos, evidencia de tecnologías, "ahora"). Ningún otro elemento usa lima.
+ *  - Sin rellenos translúcidos, sin degradados, sin sombras: la estructura son líneas de 1px.
+ *  - VT323 es la voz del sistema (etiquetas, metadatos, títulos) y nunca baja de 20px.
+ */
+:root {
+  --bg: #0a0a0b;
+  --bg-2: #111113;
+  --line: #242428;
+  --line-2: #3a3a40;
+  --fg: #ececee;
+  --fg-2: #b4b4bb;
+  --fg-3: #8b8b94;
+  --signal: #a4df7a; /* verde de los dashboards de Sano y Fresco */
+
+  --font-voice: 'VT323', ui-monospace, 'SF Mono', monospace;
+  --font-text: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --wrap: 1120px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --measure: 68ch;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  color-scheme: dark;
+}

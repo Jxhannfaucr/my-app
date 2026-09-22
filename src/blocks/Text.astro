@@ -1,0 +1,30 @@
+---
+import { inline, paragraphs } from '@lib/content/text';
+
+const { block } = Astro.props;
+---
+
+<div class="text">
+  {paragraphs(block.value).map((p) => <p set:html={inline(p)} />)}
+</div>
+
+<style>
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    max-width: var(--measure);
+    color: var(--fg-2);
+  }
+  .text :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    padding: 0.1em 0.35em;
+    border: 1px solid var(--line);
+    color: var(--fg);
+  }
+  .text :global(strong) {
+    color: var(--fg);
+    font-weight: 600;
+  }
+</style>

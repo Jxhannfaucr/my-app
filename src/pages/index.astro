@@ -1,0 +1,223 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import ProjectPlate from '../components/ProjectPlate.astro';
+import ProjectRow from '../components/ProjectRow.astro';
+import StackEvidence from '../components/StackEvidence.astro';
+import Timeline from '../components/Timeline.astro';
+import ContactList from '../components/ContactList.astro';
+import { asset, graph } from '@lib/content/load';
+import { homeProjects, now, stats } from '@lib/content/derive';
+import { homeSections } from '@lib/home';
+
+const { profile } = graph;
+const photo = profile.photo ? asset('', profile.photo) : undefined;
+const current = now();
+const s = stats();
+const sections = homeSections();
+const { featured, selected } = homeProjects();
+---
+
+<Base>
+  <section class="cover wrap">
+    <div class="main">
+      <h1 class="name voice">
+        <span class="type" style={`--n:${profile.name.length}`}>{profile.name}</span><span class="caret" aria-hidden="true"></span>
+      </h1>
+      <p class="headline">{profile.headline}</p>
+
+      <dl class="specs">
+        {
+          (current.roles.length > 0 || current.studying.length > 0) && (
+            <>
+              <dt class="label signal">Ahora</dt>
+              <dd>
+                {current.roles.map((r) => (
+                  <span>
+                    {r.role} · {r.org}
+                  </span>
+                ))}
+                {current.studying.map((c) => <span>Estudiando: {c.title}</span>)}
+              </dd>
+            </>
+          )
+        }
+        {
+          profile.openTo.length > 0 && (
+            <>
+              <dt class="label">Busca</dt>
+              <dd>{profile.openTo.join(' · ')}</dd>
+            </>
+          )
+        }
+        <dt class="label">Idiomas</dt>
+        <dd>{profile.languages.map((l) => `${l.name} (${l.level})`).join(' · ')}</dd>
+        <dt class="label">Ubicación</dt>
+        <dd>{profile.location}</dd>
+      </dl>
+
+      <p class="status label">
+        Entradas <b class="signal">{String(s.projects).padStart(3, '0')}</b> · Tecnologías <b class="signal">{s.technologies}</b> · Áreas <b class="signal">{s.areas}</b>
+      </p>
+    </div>
+    {
+      photo && (
+        <div class="portrait">
+          <Image src={photo} alt={`Retrato de ${profile.name}`} widths={[220, 440]} sizes="220px" loading="eager" />
+        </div>
+      )
+    }
+  </section>
+
+  {
+    sections.map((sec, i) => (
+      <Section n={i + 1} id={sec.id} title={sec.title}>
+        {sec.id === 'proyectos' && (
+          <>
+            {featured.map((p) => <ProjectPlate project={p} />)}
+            {selected.length > 0 && (
+              <div class="selected">
+                {selected.map((p) => <ProjectRow project={p} />)}
+              </div>
+            )}
+            <p class="all">
+              <a class="label" href="/projects/">
+                Archivo completo ({s.projects}) →
+              </a>
+            </p>
+          </>
+        )}
+        {sec.id === 'stack' && <StackEvidence />}
+        {sec.id === 'trayectoria' && <Timeline />}
+        {sec.id === 'contacto' && <ContactList />}
+      </Section>
+    ))
+  }
+</Base>
+
+<style>
+  .cover {
+    display: grid;
+    gap: 40px;
+    padding-block: clamp(48px, 9vw, 112px) clamp(48px, 7vw, 88px);
+  }
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    min-width: 0;
+  }
+  .name {
+    font-size: clamp(3.5rem, 12vw, 8.5rem);
+    line-height: 0.9;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+  .type {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    width: calc(var(--n) * 1ch);
+    animation: typing calc(var(--n) * 90ms) steps(var(--n), end) both;
+  }
+  .caret {
+    display: inline-block;
+    width: 0.07em;
+    height: 0.66em;
+    margin-left: 0.1em;
+    background: var(--fg-3);
+    animation: blink 1.1s steps(2, start) infinite;
+  }
+  :global(.typed) .type {
+    animation: none;
+  }
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: calc(var(--n) * 1ch);
+    }
+  }
+  @keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }
+  .headline {
+    font-size: clamp(1.25rem, 2.4vw, 1.625rem);
+    line-height: 1.35;
+    color: var(--fg-2);
+    max-width: 30ch;
+  }
+  .specs {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr);
+    gap: 0;
+    max-width: 640px;
+    border-top: 1px solid var(--line);
+  }
+  .specs dt,
+  .specs dd {
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .specs dd {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: var(--fg);
+  }
+  .status {
+    color: var(--fg-3);
+  }
+  .status b {
+    font-weight: 400;
+  }
+  .portrait {
+    width: 220px;
+    justify-self: start;
+    border: 1px solid var(--line-2);
+  }
+  .portrait img {
+    width: 220px;
+    height: 275px;
+    object-fit: cover;
+    object-position: 50% 18%;
+    filter: grayscale(1) contrast(1.05);
+  }
+  .selected {
+    margin-top: 32px;
+  }
+  .all {
+    margin-top: 28px;
+  }
+  .all a {
+    text-decoration: none;
+    color: var(--fg-2);
+  }
+  .all a:hover {
+    color: var(--fg);
+  }
+  @media (min-width: 860px) {
+    .cover {
+      grid-template-columns: minmax(0, 1fr) 220px;
+      gap: 56px;
+      align-items: end;
+    }
+    .portrait {
+      justify-self: end;
+    }
+  }
+  @media (max-width: 859px) {
+    .portrait {
+      order: -1;
+      width: 120px;
+    }
+    .portrait img {
+      width: 120px;
+      height: 150px;
+    }
+  }
+</style>

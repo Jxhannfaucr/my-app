@@ -1,0 +1,57 @@
+---
+import { inline } from '@lib/content/text';
+
+const { block } = Astro.props;
+---
+
+<figure class="table">
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>{block.columns.map((c: string) => <th class="label" scope="col">{c}</th>)}</tr>
+      </thead>
+      <tbody>
+        {
+          block.rows.map((row: string[]) => (
+            <tr>{row.map((cell) => <td set:html={inline(cell)} />)}</tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  {block.caption && <figcaption class="label">{block.caption}</figcaption>}
+</figure>
+
+<style>
+  .scroll {
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+  th,
+  td {
+    padding: 10px 16px 10px 0;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid var(--line);
+  }
+  th {
+    font-weight: 400;
+    border-top: 0;
+    border-bottom: 1px solid var(--line-2);
+  }
+  tr:last-child td {
+    border-bottom: 1px solid var(--line);
+  }
+  td {
+    color: var(--fg-2);
+  }
+  figcaption {
+    padding-top: 10px;
+    text-transform: none;
+    font-size: 1.125rem;
+  }
+</style>

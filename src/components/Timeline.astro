@@ -1,0 +1,72 @@
+---
+import { graph } from '@lib/content/load';
+import { timeline } from '@lib/content/derive';
+
+const events = timeline(graph.site.home.timeline);
+---
+
+<ol class="log">
+  {
+    events.map((e) => (
+      <li class="event">
+        <span class="when label">{e.when || '—'}</span>
+        <span class="kind label">{e.kind}</span>
+        <span class="what">
+          <strong class="title">{e.title}</strong>
+          {e.org && (
+            <span class="org">
+              {e.orgUrl ? (
+                <a href={e.orgUrl} target="_blank" rel="noopener noreferrer">
+                  {e.org}
+                </a>
+              ) : (
+                e.org
+              )}
+            </span>
+          )}
+          {e.summary && <span class="summary">{e.summary}</span>}
+        </span>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .event {
+    display: grid;
+    grid-template-columns: 170px 120px minmax(0, 1fr);
+    gap: 4px 20px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .event:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .when {
+    color: var(--fg-2);
+  }
+  .what {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .title {
+    font-weight: 500;
+  }
+  .org {
+    color: var(--fg-2);
+  }
+  .summary {
+    color: var(--fg-3);
+    font-size: 0.9375rem;
+    max-width: 60ch;
+  }
+  @media (max-width: 720px) {
+    .event {
+      grid-template-columns: 1fr;
+    }
+    .kind {
+      display: none;
+    }
+  }
+</style>

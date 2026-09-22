@@ -1,0 +1,84 @@
+---
+import '@fontsource/vt323/latin-400.css';
+import '@fontsource/ibm-plex-sans/latin-400.css';
+import '@fontsource/ibm-plex-sans/latin-500.css';
+import '@fontsource/ibm-plex-sans/latin-600.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Chat from '../islands/Chat';
+import { graph } from '@lib/content/load';
+import { allProjects } from '@lib/content/derive';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = graph.site.description } = Astro.props;
+const fullTitle = title ? `${title} — ${graph.profile.name}` : graph.site.title;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
+const latest = allProjects()[0];
+const suggestions = [
+  latest ? `Contame de ${latest.title}` : null,
+  '¿Qué tecnologías maneja Johan?',
+  '¿Cómo puedo contactarlo?',
+].filter((s): s is string => !!s);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <meta name="theme-color" content="#0a0a0b" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CR" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <script is:inline>
+      // La máquina de escribir del nombre corre una vez por sesión; `js` habilita las animaciones que dependen de JS.
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        try {
+          if (sessionStorage.getItem('typed')) d.classList.add('typed');
+          else sessionStorage.setItem('typed', '1');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Saltar al contenido</a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+    <Chat client:idle greeting="¡Hola! Soy el asistente de Johan :D ¿En qué te puedo ayudar?" suggestions={suggestions} />
+
+    <script>
+      // Botón "copiar" de los bloques de código (delegado: sirve para cualquier bloque presente o futuro).
+      document.addEventListener('click', async (e) => {
+        const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-copy]');
+        if (!btn) return;
+        try {
+          await navigator.clipboard.writeText(btn.dataset.copy ?? '');
+          const prev = btn.textContent;
+          btn.textContent = 'copiado';
+          setTimeout(() => (btn.textContent = prev), 1600);
+        } catch {}
+      });
+    </script>
+  </body>
+</html>

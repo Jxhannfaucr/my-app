@@ -1,0 +1,58 @@
+---
+interface Props {
+  /** Número de la sección (1-based); lo asigna quien compone la página. */
+  n: number;
+  id: string;
+  title: string;
+}
+const { n, id, title } = Astro.props;
+---
+
+<section {id} class="section" aria-labelledby={`${id}-title`}>
+  <div class="wrap grid">
+    <header>
+      <span class="no voice" aria-hidden="true">{String(n).padStart(2, '0')}</span>
+      <h2 id={`${id}-title`} class="label title">{title}</h2>
+    </header>
+    <div class="body"><slot /></div>
+  </div>
+</section>
+
+<style>
+  .section {
+    border-top: 1px solid var(--line);
+    padding-block: clamp(40px, 6vw, 80px);
+  }
+  .grid {
+    display: grid;
+    gap: 24px;
+  }
+  header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .no {
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--fg-3);
+  }
+  .title {
+    margin: 0;
+    color: var(--fg);
+  }
+  @media (min-width: 860px) {
+    .grid {
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: 40px;
+    }
+    header {
+      flex-direction: column;
+      gap: 6px;
+      padding-top: 4px;
+    }
+    .no {
+      font-size: 2.75rem;
+    }
+  }
+</style>

@@ -1,0 +1,266 @@
+---
+import Base from '../../layouts/Base.astro';
+import MetaStrip from '../../components/MetaStrip.astro';
+import Toc from '../../components/Toc.astro';
+import Block from '../../blocks/Block.astro';
+import { graph } from '@lib/content/load';
+import {
+  areaLabel,
+  entryLabel,
+  neighbors,
+  projectHref,
+  refLabel,
+  relatedTo,
+  sectionsOf,
+  techName,
+} from '@lib/content/derive';
+
+export function getStaticPaths() {
+  return graph.projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const sections = sectionsOf(project);
+const related = relatedTo(project);
+const { prev, next } = neighbors(project);
+const madeAt = project.madeAt ? refLabel(project.madeAt) : undefined;
+const hasToc = sections.filter((s) => s.heading).length > 1;
+---
+
+<Base title={project.title} description={project.summary}>
+  <article class="wrap project">
+    <p class="back label"><a href="/projects/">← Proyectos</a></p>
+
+    <header class="head">
+      <MetaStrip {project} />
+      {project.draft && <p class="label signal">Borrador (solo visible en desarrollo)</p>}
+      <h1 class="title voice">{project.title}</h1>
+      {project.subtitle && <p class="subtitle">{project.subtitle}</p>}
+      <p class="lead">{project.summary}</p>
+
+      <dl class="specs">
+        <dt class="label">Áreas</dt>
+        <dd>{project.areas.map(areaLabel).join(' · ')}</dd>
+        <dt class="label">Stack</dt>
+        <dd class="stack">{project.stack.map(techName).join(' · ')}</dd>
+        {madeAt && (
+          <>
+            <dt class="label">Hecho en</dt>
+            <dd>{madeAt}</dd>
+          </>
+        )}
+        {project.links.length > 0 && (
+          <>
+            <dt class="label">Enlaces</dt>
+            <dd class="links">
+              {project.links.map((l) => (
+                <a href={l.url} target="_blank" rel="noopener noreferrer">
+                  {l.label ?? l.kind} ↗
+                </a>
+              ))}
+            </dd>
+          </>
+        )}
+      </dl>
+    </header>
+
+    <div class:list={['doc', { 'doc--toc': hasToc }]}>
+      {hasToc && <aside class="rail"><Toc {sections} /></aside>}
+
+      <div class="content">
+        {
+          sections.map((section) => (
+            <section id={section.id ?? undefined} class="chapter">
+              {section.heading && (
+                <h2 class="chapter__title voice">
+                  <span class="chapter__no">{String(section.number).padStart(2, '0')}</span>
+                  {section.heading}
+                </h2>
+              )}
+              <div class="chapter__body">
+                {section.blocks.map((item) => (
+                  <Block {item} {project} />
+                ))}
+              </div>
+            </section>
+          ))
+        }
+        {sections.length === 0 && <p class="empty label">Este proyecto todavía no tiene el detalle publicado :/</p>}
+      </div>
+    </div>
+
+    {
+      (related.length > 0 || prev || next) && (
+        <nav class="more" aria-label="Más proyectos">
+          {related.length > 0 && (
+            <div>
+              <p class="label">Comparten tecnologías</p>
+              <ul>
+                {related.map((r) => (
+                  <li>
+                    <a href={projectHref(r)}>
+                      <span class="label">{entryLabel(r)}</span> {r.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div class="step">
+            {prev && (
+              <a href={projectHref(prev)}>
+                <span class="label">← Anterior · {entryLabel(prev)}</span>
+                <span class="voice">{prev.title}</span>
+              </a>
+            )}
+            {next && (
+              <a class="next" href={projectHref(next)}>
+                <span class="label">Siguiente · {entryLabel(next)} →</span>
+                <span class="voice">{next.title}</span>
+              </a>
+            )}
+          </div>
+        </nav>
+      )
+    }
+  </article>
+</Base>
+
+<style>
+  .project {
+    padding-block: clamp(28px, 5vw, 64px) 0;
+  }
+  .back a {
+    text-decoration: none;
+  }
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 28px;
+    padding-bottom: 40px;
+  }
+  .title {
+    font-size: clamp(3.25rem, 9vw, 6rem);
+    line-height: 0.92;
+  }
+  .subtitle {
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    line-height: 1.4;
+    color: var(--fg-2);
+    max-width: 44ch;
+  }
+  .lead {
+    max-width: var(--measure);
+    color: var(--fg-3);
+  }
+  .specs {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr);
+    max-width: 720px;
+    margin-top: 12px;
+    border-top: 1px solid var(--line);
+  }
+  .specs dt,
+  .specs dd {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .stack {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    padding-top: 12px !important;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 20px;
+  }
+  .doc {
+    display: grid;
+    gap: 32px;
+    padding-top: 40px;
+    border-top: 1px solid var(--line-2);
+  }
+  .rail {
+    min-width: 0;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 6vw, 64px);
+    min-width: 0;
+  }
+  .chapter {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+  }
+  .chapter__title {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    line-height: 1;
+  }
+  .chapter__no {
+    color: var(--fg-3);
+  }
+  .chapter__body {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    min-width: 0;
+  }
+  .empty {
+    padding-block: 24px;
+  }
+  .more {
+    display: grid;
+    gap: 32px;
+    margin-top: clamp(56px, 8vw, 96px);
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .more ul {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .more li a {
+    text-decoration: none;
+  }
+  .more li a:hover {
+    text-decoration: underline;
+  }
+  .step {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .step a {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-decoration: none;
+  }
+  .step .voice {
+    font-size: 1.75rem;
+    line-height: 1.1;
+  }
+  .step .next {
+    text-align: right;
+    grid-column: 2;
+  }
+  @media (min-width: 980px) {
+    .doc--toc {
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 56px;
+    }
+    .more {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

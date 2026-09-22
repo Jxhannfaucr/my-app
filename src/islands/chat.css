@@ -1,0 +1,310 @@
+/*
+ * La mascota conserva la silueta del portfolio anterior: un círculo con UNA esquina cuadrada
+ * (una burbuja de diálogo). Esa silueta se reserva solo para la mascota y el panel del chat.
+ */
+.chat-root {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+/* ── mascota ─────────────────────────────────────────── */
+.mascot {
+  all: unset;
+  display: block;
+  box-sizing: border-box;
+  position: relative;
+  width: 72px;
+  height: 72px;
+  cursor: pointer;
+  background: #2b2b30;
+  border: 1px solid var(--line-2);
+  border-radius: 100px 100px 0 100px;
+  transition: border-color 0.2s;
+}
+.mascot:hover {
+  border-color: var(--fg-3);
+}
+.mascot:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+}
+.mascot__face {
+  position: absolute;
+  inset: 0;
+}
+.eye {
+  position: absolute;
+  top: 32%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--fg);
+  transform-origin: center;
+  animation: blink 5.2s infinite;
+}
+.eye:nth-child(1) {
+  left: 17px;
+}
+.eye:nth-child(2) {
+  right: 17px;
+}
+.mouth {
+  position: absolute;
+  left: 50%;
+  top: 62%;
+  width: 22px;
+  height: 10px;
+  margin-left: -11px;
+  border-radius: 0 0 22px 22px;
+  background: var(--fg);
+  transition:
+    width 0.25s var(--ease),
+    height 0.25s var(--ease),
+    margin 0.25s var(--ease),
+    border-radius 0.25s var(--ease);
+}
+/* sonrisa al pasar el cursor o cuando el chat está abierto */
+.mascot:hover .mouth,
+.mascot[data-state='open'] .mouth {
+  width: 30px;
+  height: 15px;
+  margin-left: -15px;
+  border-radius: 0 0 30px 30px;
+}
+/* mientras el asistente responde, la boca "habla" */
+.mascot[data-state='thinking'] .mouth {
+  animation: talk 0.7s ease-in-out infinite;
+}
+.mascot__tag {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 12px);
+  padding: 4px 12px 5px;
+  white-space: nowrap;
+  font-size: 1.375rem;
+  line-height: 1.1;
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--line-2);
+}
+@keyframes blink {
+  0%,
+  91%,
+  100% {
+    transform: scaleY(1);
+  }
+  94%,
+  96% {
+    transform: scaleY(0.1);
+  }
+}
+@keyframes talk {
+  0%,
+  100% {
+    width: 14px;
+    height: 6px;
+    margin-left: -7px;
+    border-radius: 0 0 14px 14px;
+  }
+  50% {
+    width: 22px;
+    height: 16px;
+    margin-left: -11px;
+    border-radius: 0 0 22px 22px;
+  }
+}
+
+/* ── panel ───────────────────────────────────────────── */
+.chat {
+  display: flex;
+  flex-direction: column;
+  width: min(380px, calc(100vw - 32px));
+  height: min(560px, calc(100dvh - 140px));
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  border-radius: 18px 18px 0 18px;
+  overflow: hidden;
+}
+.chat__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+}
+.chat__close {
+  all: unset;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  font: 1.75rem/1 var(--font-voice);
+  color: var(--fg-3);
+}
+.chat__close:hover {
+  color: var(--fg);
+}
+.chat__close:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+.chat__log {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+}
+.msg {
+  margin: 0;
+  max-width: 88%;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.msg--assistant {
+  color: var(--fg);
+}
+.msg__who {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 1.125rem;
+}
+.msg--user {
+  align-self: flex-end;
+  padding: 8px 12px;
+  color: var(--fg-2);
+  border: 1px solid var(--line-2);
+}
+.dots {
+  display: inline-flex;
+  gap: 5px;
+  padding: 6px 0;
+}
+.dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--fg-3);
+  animation: dot 1s infinite;
+}
+.dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes dot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+.chat__suggest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 16px 12px;
+  margin: 0;
+  list-style: none;
+}
+.chat__suggest button {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 0.8125rem;
+  color: var(--fg-2);
+  border: 1px solid var(--line-2);
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+.chat__suggest button:hover {
+  color: var(--fg);
+  border-color: var(--fg-3);
+}
+.chat__suggest button:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+.chat__form {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px 12px;
+  border-top: 1px solid var(--line);
+}
+.chat__form textarea {
+  flex: 1;
+  resize: none;
+  min-width: 0;
+  padding: 8px 10px;
+  font: 0.9375rem/1.4 var(--font-text);
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--line-2);
+  border-radius: 0;
+}
+.chat__form textarea::placeholder {
+  color: var(--fg-3);
+}
+.chat__form textarea:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 0;
+}
+.chat__form button {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  align-self: stretch;
+  padding: 0 14px;
+  display: grid;
+  place-items: center;
+  color: var(--bg);
+  background: var(--fg);
+}
+.chat__form button:disabled {
+  cursor: not-allowed;
+  color: var(--fg-3);
+  background: var(--line);
+}
+.chat__form button:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  /* la etiqueta taparía texto en pantallas chicas; la carita sola basta */
+  .mascot__tag {
+    display: none;
+  }
+}
+@media (max-width: 480px) {
+  .mascot {
+    width: 60px;
+    height: 60px;
+  }
+  .eye {
+    width: 8px;
+    height: 8px;
+  }
+  .eye:nth-child(1) {
+    left: 14px;
+  }
+  .eye:nth-child(2) {
+    right: 14px;
+  }
+}

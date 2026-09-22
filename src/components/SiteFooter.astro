@@ -1,0 +1,24 @@
+---
+import { graph } from '@lib/content/load';
+---
+
+<footer>
+  <div class="wrap bar">
+    <p class="label">© {graph.compiled.slice(0, 4)} {graph.profile.name}</p>
+    <p class="label">Compilado <span class="signal">{graph.compiled}</span></p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-top: 1px solid var(--line);
+    margin-top: clamp(48px, 8vw, 96px);
+  }
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 24px;
+    padding-block: 24px 96px; /* espacio para la mascota fija */
+  }
+</style>
