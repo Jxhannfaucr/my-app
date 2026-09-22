@@ -1,0 +1,14 @@
+---
+/**
+ * URLs antiguas: /project/<alias> → /projects/<slug>/.
+ * Se generan solas a partir del campo `aliases` de cada proyecto.
+ */
+import { graph } from '@lib/content/load';
+import { projectHref } from '@lib/content/derive';
+
+export function getStaticPaths() {
+  return graph.projects.flatMap((p) => p.aliases.map((alias) => ({ params: { alias }, props: { to: projectHref(p) } })));
+}
+
+return Astro.redirect(Astro.props.to, 301);
+---

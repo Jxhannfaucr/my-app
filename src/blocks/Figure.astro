@@ -1,0 +1,52 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { asset } from '@lib/content/load';
+
+const { block, figure, project } = Astro.props;
+const img = asset(`projects/${project.slug}`, block.src)!;
+// Versión completa optimizada para abrir en otra pestaña (los dashboards tienen texto pequeño).
+const full = await getImage({ src: img, format: 'webp', width: img.width });
+---
+
+<figure class="fig">
+  <a href={full.src} target="_blank" rel="noopener" aria-label={`Ver imagen completa: ${block.alt}`}>
+    <Image src={img} alt={block.alt} widths={[640, 960, 1400]} sizes="(min-width: 1100px) 760px, 100vw" />
+  </a>
+  {
+    block.caption && (
+      <figcaption class="label">
+        <span class="no">Fig. {figure}</span>
+        {block.caption}
+      </figcaption>
+    )
+  }
+</figure>
+
+<style>
+  .fig a {
+    display: block;
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    cursor: zoom-in;
+    transition: border-color 0.2s;
+  }
+  .fig a:hover {
+    border-color: var(--line-2);
+  }
+  img {
+    width: 100%;
+    height: auto;
+  }
+  figcaption {
+    display: flex;
+    gap: 14px;
+    padding-top: 10px;
+    text-transform: none;
+    font-size: 1.125rem;
+  }
+  .no {
+    flex: none;
+    color: var(--fg-2);
+    text-transform: uppercase;
+  }
+</style>

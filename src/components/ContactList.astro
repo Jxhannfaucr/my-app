@@ -1,0 +1,84 @@
+---
+import { graph } from '@lib/content/load';
+
+const channels = graph.contact.channels.filter((c) => c.showOnSite);
+const shown = (c: (typeof channels)[number]) =>
+  c.kind === 'cv' ? 'Descargar' : c.value.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+---
+
+<ul class="channels">
+  {
+    channels.map((c) => (
+      <li>
+        <a href={c.value} target="_blank" rel="noopener noreferrer">
+          <span class="label">{c.label}</span>
+          <span class="value">{shown(c)}</span>
+          <span class="go voice" aria-hidden="true">{c.kind === 'cv' ? '↓' : '↗'}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+<p class="ask">
+  ¿Tenés una duda puntual? <button type="button" data-open-chat>Preguntale al asistente →</button>
+</p>
+
+<style>
+  .channels li a {
+    display: grid;
+    grid-template-columns: 140px minmax(0, 1fr) 24px;
+    gap: 6px 16px;
+    align-items: baseline;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .channels li:last-child a {
+    border-bottom: 1px solid var(--line);
+  }
+  .channels li a:hover {
+    border-top-color: var(--fg);
+  }
+  .value {
+    overflow-wrap: anywhere;
+  }
+  .go {
+    color: var(--fg-3);
+    font-size: 1.5rem;
+    transition:
+      transform 0.2s var(--ease),
+      color 0.2s;
+  }
+  .channels li a:hover .go {
+    transform: translate(3px, -3px);
+    color: var(--fg);
+  }
+  .ask {
+    margin-top: 28px;
+    color: var(--fg-2);
+  }
+  .ask button {
+    all: unset;
+    cursor: pointer;
+    color: var(--fg);
+    text-decoration: underline;
+    text-decoration-color: var(--line-2);
+    text-underline-offset: 0.22em;
+  }
+  .ask button:hover {
+    text-decoration-color: currentColor;
+  }
+  .ask button:focus-visible {
+    outline: 2px solid var(--fg);
+    outline-offset: 3px;
+  }
+  @media (max-width: 620px) {
+    .channels li a {
+      grid-template-columns: 1fr 24px;
+    }
+    .channels .label {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

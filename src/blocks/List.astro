@@ -1,0 +1,45 @@
+---
+import { inline } from '@lib/content/text';
+
+const { block } = Astro.props;
+const Tag = block.ordered ? 'ol' : 'ul';
+---
+
+<Tag class:list={['list', { ordered: block.ordered }]}>
+  {block.items.map((item: string) => <li set:html={inline(item)} />)}
+</Tag>
+
+<style>
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    max-width: var(--measure);
+    color: var(--fg-2);
+    counter-reset: item;
+  }
+  .list li {
+    position: relative;
+    padding-left: 1.6em;
+    counter-increment: item;
+  }
+  .list li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    font-family: var(--font-voice);
+    color: var(--fg-3);
+  }
+  .ordered li::before {
+    content: counter(item, decimal-leading-zero);
+    font-size: 1.125rem;
+  }
+  .ordered li {
+    padding-left: 2.2em;
+  }
+  .list :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    color: var(--fg);
+  }
+</style>

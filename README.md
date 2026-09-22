@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# Portfolio — Johan Zúñiga
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Sitio estático en [Astro](https://astro.build) con una sola isla de React (el chat). Todo el contenido vive en
+[`content/`](content/README.md): agregar un proyecto, experiencia o certificación no requiere tocar la UI.
 
-## Available Scripts
+## Comandos
 
-In the project directory, you can run:
+| Comando | Qué hace |
+|---|---|
+| `npm run dev` | Servidor de desarrollo en `localhost:4321` (muestra los `draft`) |
+| `npm run build` | Valida todo el contenido y genera el sitio |
+| `npm run check` | Chequeo de tipos (`astro check`) |
 
-### `npm start`
+Requiere Node ≥ 22.19 (ver `.nvmrc`).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Estructura
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+content/        ← lo único que editas (ver content/README.md)
+src/lib/content ← esquemas (zod), carga/validación y datos derivados
+src/lib/chat    ← constructor del prompt del asistente (usa el mismo contenido)
+src/blocks/     ← un componente por tipo de bloque
+src/components/ ← primitivas visuales   src/layouts/  src/pages/
+src/islands/    ← Chat.tsx (React)      src/styles/   ← tokens y base
+```
 
-### `npm test`
+## Chat
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`src/pages/api/chat.ts` es el único código de servidor. Llama a Groq con la key de la variable de entorno
+`GROQ_API_KEY` (o `REACT_APP_GROQ_API_KEY`, el nombre que usaba el sitio anterior). La key nunca llega al
+navegador. Ver `.env.example`.
 
-### `npm run build`
+## Despliegue
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Vercel (`vercel.json` fija el framework en Astro). El sitemap y `robots.txt` apuntan a
+`https://johan-portfolio-three.vercel.app`; si el dominio cambia, actualiza `site` en `astro.config.mjs`.

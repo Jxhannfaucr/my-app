@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://johan-portfolio-three.vercel.app/sitemap-index.xml

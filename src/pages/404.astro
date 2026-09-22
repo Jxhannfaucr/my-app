@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="No encontrado" description="Esa página no existe.">
+  <div class="wrap nf">
+    <p class="face voice" aria-hidden="true">:/</p>
+    <h1 class="voice">Esa página no existe</h1>
+    <p class="label"><a href="/">Volver al inicio →</a></p>
+  </div>
+</Base>
+
+<style>
+  .nf {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-block: clamp(64px, 12vw, 160px);
+  }
+  .face {
+    font-size: clamp(5rem, 16vw, 10rem);
+    line-height: 0.8;
+    color: var(--fg-3);
+  }
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    line-height: 1;
+  }
+  a {
+    text-decoration: none;
+  }
+</style>

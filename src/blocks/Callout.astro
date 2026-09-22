@@ -1,0 +1,37 @@
+---
+import { inline } from '@lib/content/text';
+
+const { block } = Astro.props;
+const labels: Record<string, string> = { note: 'Nota', lesson: 'Aprendizaje', warning: 'Ojo' };
+---
+
+{
+  block.kind === 'quote' ? (
+    <blockquote class="quote" set:html={inline(block.value)} />
+  ) : (
+    <aside class="callout">
+      <p class="label">{labels[block.kind]}</p>
+      <p set:html={inline(block.value)} />
+    </aside>
+  )
+}
+
+<style>
+  .quote,
+  .callout {
+    max-width: var(--measure);
+    padding-left: 20px;
+    border-left: 2px solid var(--line-2);
+    color: var(--fg);
+  }
+  .quote {
+    font-size: 1.1875rem;
+    line-height: 1.55;
+  }
+  .callout {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: var(--fg-2);
+  }
+</style>

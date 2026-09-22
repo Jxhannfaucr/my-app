@@ -1,0 +1,133 @@
+---
+import { Image } from 'astro:assets';
+import type { Project } from '@lib/content/load';
+import { coverOf, projectHref, techName } from '@lib/content/derive';
+import MetaStrip from './MetaStrip.astro';
+
+/**
+ * Lámina de un proyecto destacado. El marco es siempre igual; el interior lo decide el proyecto:
+ * su portada si la tiene, o una ficha con sus datos si no.
+ */
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+const cover = coverOf(project);
+---
+
+<article class="plate">
+  <a class="link" href={projectHref(project)} aria-labelledby={`plate-${project.slug}`}>
+    <div class="text">
+      <MetaStrip {project} />
+      <h3 id={`plate-${project.slug}`} class="title voice">{project.title}</h3>
+      <p class="summary">{project.summary}</p>
+      <p class="stack">{project.stack.map(techName).join(' · ')}</p>
+      <p class="more label">Ver proyecto <span class="arrow" aria-hidden="true">→</span></p>
+    </div>
+    <div class="figure">
+      {
+        cover ? (
+          <Image src={cover} alt="" widths={[400, 800]} sizes="(min-width: 900px) 360px, 100vw" />
+        ) : (
+          <div class="specimen" aria-hidden="true">
+            <span class="label">Entrada</span>
+            <span class="num voice">{String(project.entry).padStart(3, '0')}</span>
+          </div>
+        )
+      }
+    </div>
+  </a>
+</article>
+
+<style>
+  .plate + .plate {
+    margin-top: 20px;
+  }
+  .link {
+    display: grid;
+    gap: 24px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .plate:first-child .link {
+    border-top-color: var(--line-2);
+  }
+  .link:hover {
+    border-top-color: var(--fg);
+  }
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+  }
+  .title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    line-height: 1;
+  }
+  .more {
+    margin-top: 6px;
+    color: var(--fg-3);
+    transition: color 0.2s;
+  }
+  .arrow {
+    display: inline-block;
+    transition: transform 0.2s var(--ease);
+  }
+  .link:hover .more {
+    color: var(--fg);
+  }
+  .link:hover .arrow {
+    transform: translateX(6px);
+  }
+  .summary {
+    max-width: 52ch;
+    color: var(--fg-2);
+  }
+  .stack {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--fg-3);
+  }
+  .figure {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    align-self: start;
+  }
+  .figure img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top left;
+    transition: transform 0.5s var(--ease);
+  }
+  .link:hover .figure img {
+    transform: scale(1.025);
+  }
+  /* Sin portada: el número de entrada hace de figura. Mismo formato que una portada (16/10). */
+  .specimen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    aspect-ratio: 16 / 10;
+    padding: 16px 18px;
+  }
+  .specimen .num {
+    font-size: clamp(5rem, 9vw, 7.5rem);
+    line-height: 0.75;
+    color: var(--fg-3);
+    transition: color 0.3s;
+  }
+  .link:hover .specimen .num {
+    color: var(--fg);
+  }
+  @media (min-width: 860px) {
+    .link {
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 40px;
+    }
+  }
+</style>

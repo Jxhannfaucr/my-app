@@ -1,0 +1,74 @@
+---
+import { graph } from '@lib/content/load';
+import { homeSections } from '@lib/home';
+
+const sections = homeSections();
+const cv = graph.contact.channels.find((c) => c.kind === 'cv' && c.showOnSite);
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="/" aria-label={`${graph.profile.name}, inicio`}>
+      <span class="mark" aria-hidden="true"><i></i><i></i></span>
+      <span class="name voice">{graph.profile.name}</span>
+    </a>
+    <nav aria-label="Principal">
+      <ul>
+        {sections.map((s) => <li><a href={`/#${s.id}`}>{s.title}</a></li>)}
+        {cv && <li><a href={cv.value} rel="noopener">CV&nbsp;↓</a></li>}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--line);
+  }
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 28px;
+    padding-block: 18px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .mark {
+    display: inline-flex;
+    gap: 5px;
+  }
+  .mark i {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--fg);
+  }
+  .name {
+    font-size: 1.625rem;
+    line-height: 1;
+  }
+  nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 26px;
+  }
+  nav a {
+    font-family: var(--font-voice);
+    font-size: 1.25rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--fg-3);
+    transition: color 0.15s;
+  }
+  nav a:hover {
+    color: var(--fg);
+  }
+</style>

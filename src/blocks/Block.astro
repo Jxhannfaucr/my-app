@@ -1,0 +1,39 @@
+---
+/**
+ * Despachador de bloques. Añadir un tipo nuevo de bloque:
+ *   1. esquema en src/lib/content/schema.ts  2. componente en esta carpeta  3. una línea en `registry`.
+ * Los proyectos existentes no cambian.
+ */
+import type { RenderedBlock } from '@lib/content/derive';
+import type { Project } from '@lib/content/load';
+import Text from './Text.astro';
+import List from './List.astro';
+import Code from './Code.astro';
+import Figure from './Figure.astro';
+import Table from './Table.astro';
+import Callout from './Callout.astro';
+
+const registry = { text: Text, list: List, code: Code, figure: Figure, table: Table, callout: Callout };
+
+interface Props {
+  item: RenderedBlock;
+  project: Project;
+}
+const { item, project } = Astro.props;
+const { block } = item;
+
+const Comp = registry[block.type as keyof typeof registry] as any;
+if (!Comp) throw new Error(`Bloque "${block.type}" sin componente: agrégalo al registro en src/blocks/Block.astro`);
+---
+
+{block.subheading && <h3 class="sub voice">{block.subheading}</h3>}
+<Comp block={block} figure={item.figure} project={project} />
+
+<style>
+  .sub {
+    font-size: 1.75rem;
+    line-height: 1.15;
+    margin-top: 8px;
+    color: var(--fg);
+  }
+</style>
