@@ -29,6 +29,8 @@ export default defineTechnologies({
   'shadcn-ui': { name: 'shadcn/ui', group: 'frontend' },
   bootstrap: { name: 'Bootstrap', group: 'frontend' },
   canvas: { name: 'Canvas API', group: 'frontend' },
+  recharts: { name: 'Recharts', group: 'frontend' },
+  'html5-qrcode': { name: 'html5-qrcode', group: 'frontend', note: 'escaneo de QR por cámara' },
 
   // backend
   fastapi: { name: 'FastAPI', group: 'backend' },
@@ -36,6 +38,8 @@ export default defineTechnologies({
   sqlalchemy: { name: 'SQLAlchemy', group: 'backend' },
   dotnet: { name: '.NET', group: 'backend', note: 'nivel académico' },
   sanity: { name: 'Sanity CMS', group: 'backend' },
+  xhtml2pdf: { name: 'xhtml2pdf', group: 'backend', note: 'PDFs en memoria desde HTML' },
+  resend: { name: 'Resend', group: 'backend', note: 'envío de correo transaccional' },
 
   // bases de datos
   postgresql: { name: 'PostgreSQL', group: 'bases-de-datos' },
