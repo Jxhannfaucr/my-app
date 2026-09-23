@@ -63,7 +63,7 @@ const { featured, selected } = homeProjects();
     </div>
     {
       photo && (
-        <div class="portrait">
+        <div class="portrait" tabindex="0">
           <Image src={photo} alt={`Retrato de ${profile.name}`} widths={[220, 440]} sizes="220px" loading="eager" />
         </div>
       )
@@ -176,9 +176,16 @@ const { featured, selected } = homeProjects();
     font-weight: 400;
   }
   .portrait {
+    position: relative;
     width: 220px;
     justify-self: start;
+    overflow: hidden;
     border: 1px solid var(--line-2);
+    cursor: pointer;
+  }
+  .portrait:focus-visible {
+    outline: 2px solid var(--fg);
+    outline-offset: 3px;
   }
   .portrait img {
     width: 220px;
@@ -186,6 +193,29 @@ const { featured, selected } = homeProjects();
     object-fit: cover;
     object-position: 50% 18%;
     filter: grayscale(1) contrast(1.05);
+    transition: filter 0.7s var(--ease);
+  }
+  /* al pasar el cursor, la foto pasa a color con un brillo que la recorre, como un escaneo */
+  .portrait::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, 0.5) 50%, transparent 58%);
+    transform: translateX(-140%);
+    pointer-events: none;
+  }
+  .portrait:hover img,
+  .portrait:focus-visible img {
+    filter: grayscale(0) contrast(1.05);
+  }
+  .portrait:hover::after,
+  .portrait:focus-visible::after {
+    animation: portrait-sweep 0.8s var(--ease);
+  }
+  @keyframes portrait-sweep {
+    to {
+      transform: translateX(140%);
+    }
   }
   .selected {
     margin-top: 32px;

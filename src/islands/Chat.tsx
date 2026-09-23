@@ -180,10 +180,9 @@ export default function Chat({ greeting, suggestions }: Props) {
         onClick={() => setOpen((o) => !o)}
       >
         {!open && <span className="mascot__tag voice">Hablemos!!</span>}
-        <span className="mascot__face" aria-hidden="true">
-          <i className="eye" />
-          <i className="eye" />
-          <i className="mouth" />
+        <span className="mascot__signal" aria-hidden="true">
+          <i className="dot" />
+          <i className="dot" />
         </span>
       </button>
     </div>

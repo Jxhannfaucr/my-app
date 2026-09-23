@@ -160,6 +160,8 @@ export const profileSchema = z
     headline: z.string(),
     location: z.string(),
     photo: z.string().optional(),
+    /** Solo el año: alcanza para calcular la edad en el prompt del chatbot sin que caduque. */
+    birthYear: z.number().int().min(1900).optional(),
     languages: z.array(z.object({ name: z.string(), level: z.string() }).strict()),
     openTo: z.array(z.string()).default([]),
     interests: z.array(z.string()).default([]),

@@ -127,6 +127,17 @@ export function areasInUse() {
   return [...counts.entries()].map(([id, count]) => ({ id, label: areaLabel(id), count }));
 }
 
+/**
+ * Edad calculada desde `profile.birthYear` (solo el año, sin mes) para que no quede escrita a
+ * mano ni caduque. Aproximación: resta simple de años, así que puede adelantarse hasta un año
+ * antes del cumpleaños real. Suficiente para el chatbot; si algún día importa el día exacto,
+ * cambiar `birthYear` por una fecha completa.
+ */
+export function age(refDate = new Date()): number | undefined {
+  const { birthYear } = graph.profile;
+  return birthYear ? refDate.getFullYear() - birthYear : undefined;
+}
+
 // ── estado actual y estadísticas ──────────────────────────────────────────
 export function now() {
   return {

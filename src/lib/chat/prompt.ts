@@ -6,6 +6,7 @@
  */
 import { graph, type Project } from '@lib/content/load';
 import {
+  age,
   allProjects,
   areaLabel,
   originLabel,
@@ -115,7 +116,7 @@ You are the official virtual assistant for ${profile.name}'s portfolio (${siteUr
 Name: ${profile.name}
 Location: ${profile.location}
 Headline: ${profile.headline}
-${profile.personality ? `Personality: ${profile.personality}\n` : ''}Roles he is looking for: ${profile.openTo.join('; ')}
+${age(now) !== undefined ? `Age: ${age(now)}\n` : ''}${profile.personality ? `Personality: ${profile.personality}\n` : ''}Roles he is looking for: ${profile.openTo.join('; ')}
 Professional interests: ${profile.interests.join('; ')}
 Languages: ${profile.languages.map((l) => `${l.name} (${l.level})`).join(', ')}
 ${profile.botFacts.map((f) => `- ${f}`).join('\n')}

@@ -1,6 +1,7 @@
 /*
- * La mascota conserva la silueta del portfolio anterior: un círculo con UNA esquina cuadrada
- * (una burbuja de diálogo). Esa silueta se reserva solo para la mascota y el panel del chat.
+ * Mascota "Signal": la misma marca de dos puntos del logo del header (ver SiteHeader.astro),
+ * en una placa de línea fina con una esquina cortada (el mismo gesto que el resto del sitio usa
+ * en figuras y tarjetas, no un blob relleno). Sin cara: el estado se lee en cómo laten los puntos.
  */
 .chat-root {
   position: fixed;
@@ -19,67 +20,74 @@
   display: block;
   box-sizing: border-box;
   position: relative;
-  width: 72px;
-  height: 72px;
+  width: 64px;
+  height: 64px;
   cursor: pointer;
-  background: #2b2b30;
+  background: var(--bg);
   border: 1px solid var(--line-2);
-  border-radius: 100px 100px 0 100px;
-  transition: border-color 0.2s;
+  clip-path: polygon(0 0, 100% 0, 100% 76%, 76% 100%, 0 100%);
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
 }
-.mascot:hover {
+.mascot:hover,
+.mascot[data-state='open'] {
   border-color: var(--fg-3);
+  background: var(--bg-2);
 }
 .mascot:focus-visible {
   outline: 2px solid var(--fg);
   outline-offset: 3px;
 }
-.mascot__face {
+.mascot__signal {
   position: absolute;
   inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
 }
-.eye {
-  position: absolute;
-  top: 32%;
-  width: 10px;
-  height: 10px;
+.dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--fg);
-  transform-origin: center;
-  animation: blink 5.2s infinite;
-}
-.eye:nth-child(1) {
-  left: 17px;
-}
-.eye:nth-child(2) {
-  right: 17px;
-}
-.mouth {
-  position: absolute;
-  left: 50%;
-  top: 62%;
-  width: 22px;
-  height: 10px;
-  margin-left: -11px;
-  border-radius: 0 0 22px 22px;
-  background: var(--fg);
+  background: var(--fg-3);
   transition:
-    width 0.25s var(--ease),
-    height 0.25s var(--ease),
-    margin 0.25s var(--ease),
-    border-radius 0.25s var(--ease);
+    background-color 0.2s,
+    transform 0.2s;
 }
-/* sonrisa al pasar el cursor o cuando el chat está abierto */
-.mascot:hover .mouth,
-.mascot[data-state='open'] .mouth {
-  width: 30px;
-  height: 15px;
-  margin-left: -15px;
-  border-radius: 0 0 30px 30px;
+/* anillo que hace "ping", como una señal en espera */
+.dot::before {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  border: 1px solid var(--fg-3);
+  border-radius: 50%;
+  opacity: 0;
 }
-/* mientras el asistente responde, la boca "habla" */
-.mascot[data-state='thinking'] .mouth {
-  animation: talk 0.7s ease-in-out infinite;
+.mascot:hover .dot {
+  background: var(--fg);
+  transform: scale(1.15);
+}
+/* en reposo: cada punto emite su ping por turnos */
+.mascot[data-state='idle'] .dot::before {
+  animation: signal-ping 3.6s ease-out infinite;
+}
+.mascot[data-state='idle'] .dot:nth-child(2)::before {
+  animation-delay: 1.8s;
+}
+/* chat abierto: puntos fijos y encendidos, sin parpadeo */
+.mascot[data-state='open'] .dot {
+  background: var(--fg);
+}
+/* mientras el asistente responde: laten alternados, como los puntos "escribiendo" del panel */
+.mascot[data-state='thinking'] .dot {
+  background: var(--fg);
+  animation: signal-blink 0.9s ease-in-out infinite;
+}
+.mascot[data-state='thinking'] .dot:nth-child(2) {
+  animation-delay: 0.3s;
 }
 .mascot__tag {
   position: absolute;
@@ -93,30 +101,25 @@
   background: var(--bg);
   border: 1px solid var(--line-2);
 }
-@keyframes blink {
-  0%,
-  91%,
-  100% {
-    transform: scaleY(1);
+@keyframes signal-ping {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.6);
   }
-  94%,
-  96% {
-    transform: scaleY(0.1);
+  65%,
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
   }
 }
-@keyframes talk {
+@keyframes signal-blink {
   0%,
+  60%,
   100% {
-    width: 14px;
-    height: 6px;
-    margin-left: -7px;
-    border-radius: 0 0 14px 14px;
+    opacity: 0.3;
   }
-  50% {
-    width: 22px;
-    height: 16px;
-    margin-left: -11px;
-    border-radius: 0 0 22px 22px;
+  30% {
+    opacity: 1;
   }
 }
 
@@ -301,24 +304,17 @@
 }
 
 @media (max-width: 640px) {
-  /* la etiqueta taparía texto en pantallas chicas; la carita sola basta */
+  /* la etiqueta taparía texto en pantallas chicas; la marca sola basta */
   .mascot__tag {
     display: none;
   }
 }
 @media (max-width: 480px) {
   .mascot {
-    width: 60px;
-    height: 60px;
+    width: 54px;
+    height: 54px;
   }
-  .eye {
-    width: 8px;
-    height: 8px;
-  }
-  .eye:nth-child(1) {
-    left: 14px;
-  }
-  .eye:nth-child(2) {
-    right: 14px;
+  .mascot__signal {
+    gap: 9px;
   }
 }

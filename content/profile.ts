@@ -5,6 +5,7 @@ export default defineProfile({
   headline: 'Ingeniero en Sistemas — backend, datos y web :D',
   location: 'Costa Rica',
   photo: 'assets/profile.jpg',
+  birthYear: 2004,
   languages: [
     { name: 'Español', level: 'nativo' },
     { name: 'Inglés', level: 'intermedio (B1–B2)' },
@@ -22,8 +23,7 @@ export default defineProfile({
     'Crear soluciones eficientes, claras, modernas y bien documentadas, combinando programación y análisis de datos para aportar valor real a empresas o proyectos.',
   botFacts: [
     'Es costarricense, de Upala, Alajuela.',
-    // TODO(johan): reemplazar por una fecha de nacimiento (AAAA-MM) para que la edad no caduque.
-    'Tiene 21 años (dato de septiembre de 2026).',
+    // La edad ya no se escribe a mano: se calcula sola desde `birthYear` (ver buildSystemPrompt).
     'Su tesis de graduación trató sobre SQL, tema en el que tiene conocimiento sólido.',
     'Actualmente estudia un técnico en Analista de Datos en el TEC (Fundatec).',
   ],

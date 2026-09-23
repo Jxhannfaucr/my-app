@@ -17,6 +17,7 @@ export default defineProject({
   origin: 'personal',
   status: 'shipped',
   links: [], // TODO(johan): URL pública del sitio
+  cover: 'assets/hero.jpg',
 
   blocks: [
     {
@@ -24,6 +25,12 @@ export default defineProject({
       type: 'text',
       value:
         'E-commerce de mi propia marca de streetwear, con dos objetivos a la vez: automatizar parte real de la operación comercial y servir de muestra de arquitectura frontend moderna. Next.js 16 con App Router y TypeScript en modo estricto.',
+    },
+    {
+      type: 'figure',
+      src: 'assets/hero.jpg',
+      alt: 'Portada de Zygos Store: título "Unión Streetwear" sobre una malla de vectores animada, con nombres de marcas apareciendo al azar alrededor',
+      caption: 'Estética propia: streetwear con un aire futurista, la malla animada del hero de fondo.',
     },
 
     // ── Server Components por defecto ────────────────────────────────────
@@ -65,6 +72,12 @@ export default defineProject({
       type: 'text',
       value:
         'Un producto agotado se ve distinto en toda la tarjeta: imagen en escala de grises, sello "Sold Out" superpuesto, precio y nombre tachados, botón de compra deshabilitado. El flujo de compra en sí no usa un carrito tradicional: cada producto disponible arma un link de WhatsApp con el mensaje pre-cargado (catálogo → intención de compra → contacto → venta), que es como realmente opera el negocio.',
+    },
+    {
+      type: 'figure',
+      src: 'assets/catalogo.jpg',
+      alt: 'Catálogo de Zygos Store con filtro por talla y tres tarjetas de producto, dos marcadas "Sold Out" en escala de grises y una disponible con botón "Comprar vía WhatsApp"',
+      caption: 'El catálogo filtrado por talla, con el tratamiento visual de "agotado" en acción.',
     },
 
     // ── Animación sin dependencias ─────────────────────────────────────────
