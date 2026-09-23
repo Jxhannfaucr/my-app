@@ -170,6 +170,9 @@ export default function Chat({ greeting, suggestions }: Props) {
         </section>
       )}
 
+      {/* Fuera del botón a propósito: el `clip-path` de .mascot recortaría cualquier hijo suyo
+          que sobresalga por encima, así que el tag flota como hermano en el mismo flex column. */}
+      {!open && <span className="mascot__tag voice">Hablemos!!</span>}
       <button
         ref={launcher}
         type="button"
@@ -179,7 +182,6 @@ export default function Chat({ greeting, suggestions }: Props) {
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
       >
-        {!open && <span className="mascot__tag voice">Hablemos!!</span>}
         <span className="mascot__signal" aria-hidden="true">
           <i className="dot" />
           <i className="dot" />

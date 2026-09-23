@@ -8,6 +8,7 @@ import '../styles/tokens.css';
 import '../styles/base.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import BackgroundField from '../components/BackgroundField.astro';
 import Chat from '../islands/Chat';
 import { graph } from '@lib/content/load';
 import { allProjects } from '@lib/content/derive';
@@ -59,6 +60,7 @@ const suggestions = [
   </head>
   <body>
     <a class="skip" href="#main">Saltar al contenido</a>
+    <BackgroundField />
     <SiteHeader />
     <main id="main">
       <slot />

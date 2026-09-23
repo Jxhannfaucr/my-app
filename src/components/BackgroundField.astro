@@ -1,0 +1,37 @@
+---
+/**
+ * Fondo animado, leve a propósito: una cuadrícula de puntos fija (papel cuadriculado, coherente
+ * con "cuaderno técnico") y una sola línea horizontal que la recorre muy lento, como un escaneo.
+ * Nada de degradados de color ni partículas sueltas — solo grises, y en movimiento GPU-barato
+ * (transform, no background-position). `prefers-reduced-motion` la congela (regla global en base.css).
+ */
+---
+
+<div class="bg-field" aria-hidden="true">
+  <div class="bg-field__scan"></div>
+</div>
+
+<style>
+  .bg-field {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(circle, var(--line) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+  .bg-field__scan {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 35vh;
+    background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+    transform: translateY(-40vh);
+    animation: bg-scan 16s linear infinite;
+  }
+  @keyframes bg-scan {
+    to {
+      transform: translateY(140vh);
+    }
+  }
+</style>
