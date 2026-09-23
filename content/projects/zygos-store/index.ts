@@ -16,7 +16,7 @@ export default defineProject({
   stack: ['nextjs', 'typescript', 'tailwind', 'sanity', 'groq', 'canvas', 'vercel'],
   origin: 'personal',
   status: 'shipped',
-  links: [], // TODO(johan): URL pública del sitio
+  links: [{ kind: 'demo', url: 'https://zygosstore.com', label: 'Ver sitio' }],
   cover: 'assets/hero.jpg',
 
   blocks: [
